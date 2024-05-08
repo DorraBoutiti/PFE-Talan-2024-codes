@@ -1,0 +1,15 @@
+{
+  "name": "HrDocumentAnalyzer",
+  "version": "1.0.0",
+  "description": "Dockerized environment with a database, a back-end and a front-end application.",
+  "scripts": {
+    "build:back": "docker-compose build backend-document-analyzer",
+    "build:front": "docker-compose build frontend-document-analyzer",
+    "start:db": "docker-compose up mysql-db",
+    "start:back": "docker-compose up backend-document-analyzer --renew-anon-volumes",
+    "start:front": "docker-compose up frontend-document-analyzer --renew-anon-volumes",
+    "clean": "docker-compose down -v"
+  },
+  "author": "Talan Consulting Tunisie",
+  "license": "ISC"
+}

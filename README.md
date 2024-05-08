@@ -37,4 +37,53 @@ Chaque équipe suit un processus de contribution similaire pour pousser ses trav
 5. **Mise à Jour de la Branche Principale :**
    - Les responsables de chaque équipe sont chargés de fusionner ou réintégrer les branches des membres de leur équipe dans la branche principale, si et quand ils le jugent approprié.
 
+# Tavail HrDocumentAnalyzer
+Le projet HrDocumentAnalyzer est réalisé par Dorra Boutiti.
 
+## Running Everything Together
+
+To run everything together, use the following command:
+
+```bash
+docker-compose up
+```
+This command will start all services defined in the docker-compose.yml file.
+
+## Running Projects Separately
+Run the MySQL Database:
+
+To run the MySQL database separately, you can use the following command:
+```bash
+docker-compose up mysql-db
+```
+## Run the NestJS App
+To run the NestJS app separately, you can use either of the following commands:
+```bash
+npm run start:back
+```
+or
+```bash
+docker-compose up backend-document-analyzer
+```
+## Run the React js App
+To run the REACT js app separately, you can use either of the following commands:
+```bash
+npm run start:front
+```
+or
+
+```bash
+docker-compose up frontend-document-analyzer
+```
+## Cleaning the Database Volume
+To clean the database volume, you can use the following command:
+
+```bash
+npm run clean
+```
+or
+
+```bash
+docker-compose down -v
+```
+This command will stop and remove all containers defined in the docker-compose.yml file and also remove any volumes associated with them.
