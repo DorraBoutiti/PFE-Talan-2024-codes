@@ -1,59 +1,68 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to App</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-      }
-      .container {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .logo {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .logo img {
-        width: 150px;
-      }
-      .message {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="logo">
-        <img src="https://picsum.photos/seed/picsum/200/300" alt="App Logo" />
-      </div>
-      <div class="message">
-        <h2>Welcome to App!</h2>
-        <p>Hello {{name}},</p>
-        <p>
-          Thank you for joining us. Click the button below to complete your
-          registration:
-        </p>
-        <a class="button" href="{{url}}">Complete Registration</a>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Missing Documents</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 150px;
+    }
+
+    .message {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://picsum.photos/seed/picsum/200/300" alt="App Logo" />
     </div>
-  </body>
+    <div class="message">
+      <h2>Upload Missing Documents</h2>
+      <p>Hello {{name}},</p>
+      <p>
+        We noticed that some of your documents are missing. Please upload them
+        to complete your registration.
+      </p>
+      
+      <a class="button" href="{{url}}">Upload Your Documents</a>
+    </div>
+  </div>
+</body>
+
 </html>

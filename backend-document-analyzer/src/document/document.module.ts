@@ -3,9 +3,9 @@ import { DocumentService } from './document.service';
 import { DocumentController } from './document.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Document } from './entities/document.entity';
-import { CandidatModule } from 'src/candidat/candidat.module';
-import { Candidat } from 'src/candidat/entities/candidat.entity';
-import { InformationsExtraitesModule } from 'src/informations-extraites/informations-extraites.module';
+import { CandidatModule } from '../candidat/candidat.module';
+import { Candidat } from '../candidat/entities/candidat.entity';
+import { InformationsExtraitesModule } from '../informations-extraites/informations-extraites.module';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({

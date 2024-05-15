@@ -1,6 +1,5 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
-import { CreateCandidatDto } from 'src/candidat/dto/create-candidat.dto';
 import * as fs from 'fs';
 
 @Injectable()
@@ -8,8 +7,7 @@ export class MailService {
   constructor(private mailerService: MailerService) {}
 
   async sendUserConfirmation(full_name: string, email: string, id: number) {
-    const url = 'http://localhost:3000/upload/'+full_name+'/'+ id;
-    console.log(full_name);
+    const url = `http://localhost:${process.env.REACTJS_APP_DOCKER_PORT}/chatbot/`+full_name+'/'+ id;    
     const htmlContent = fs.readFileSync('src/mail/mail.html', 'utf8');
     const replacedHtmlContent = htmlContent
       .replace('{{name}}', full_name)
@@ -18,7 +16,7 @@ export class MailService {
 
     await this.mailerService.sendMail({
       to: email,
-      subject: 'Welcome to app!',
+      subject: 'Request to upload documents from Talan Consulting',
       html: replacedHtmlContent,
       context: {
         name: full_name,

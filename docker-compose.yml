@@ -60,7 +60,7 @@ services:
     volumes:
       - ./frontend-document-analyzer:/app
       - /app/node_modules
-      - /app/.next
+      
     networks:
       - default
 

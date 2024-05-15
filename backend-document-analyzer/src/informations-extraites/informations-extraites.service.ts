@@ -3,7 +3,7 @@ import { CreateInformationsExtraiteDto } from './dto/create-informations-extrait
 import { InformationExtraites } from './entities/informations-extraite.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Document } from 'src/document/entities/document.entity';
+import { Document } from '../document/entities/document.entity';
 
 @Injectable()
 export class InformationsExtraitesService {

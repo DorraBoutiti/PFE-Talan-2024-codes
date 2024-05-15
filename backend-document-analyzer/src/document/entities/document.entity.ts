@@ -6,8 +6,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { InformationExtraites } from 'src/informations-extraites/entities/informations-extraite.entity';
-import { Candidat } from 'src/candidat/entities/candidat.entity';
+import { InformationExtraites } from '../../informations-extraites/entities/informations-extraite.entity';
+import { Candidat } from '../../candidat/entities/candidat.entity';
 
 @Entity()
 export class Document {
@@ -23,7 +23,7 @@ export class Document {
   @Column({ type: 'datetime' })
   dateTelechargement: Date;
 
-  @Column({ type: 'longblob' })
+  @Column({ type: 'longblob' , default: ''})
   file: string;
 
   @Column()

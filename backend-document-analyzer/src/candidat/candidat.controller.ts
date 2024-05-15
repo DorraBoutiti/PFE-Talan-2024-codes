@@ -54,11 +54,6 @@ export class CandidatController {
       });
     }
   }
-
-
-
-
-
   
   @Get('/all')
   @ApiResponse({ status: HttpStatus.OK, description: 'Returns all candidats.' })
@@ -164,7 +159,7 @@ export class CandidatController {
   })
   async searchCandidats(@Body('query') query: string, @Res() response) {
     try {
-      const candidats = await this.candidatService.search(query);
+      const candidats = await this.candidatService.search(query);      
       return response.status(HttpStatus.OK).json(candidats);
     } catch (error) {
       return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({

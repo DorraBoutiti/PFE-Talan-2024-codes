@@ -1,10 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDocumentDto } from './dto/create-document.dto';
-import { UpdateDocumentDto } from './dto/update-document.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 import { Document } from './entities/document.entity';
-import { Candidat } from 'src/candidat/entities/candidat.entity';
+import { Candidat } from '../candidat/entities/candidat.entity';
 
 @Injectable()
 export class DocumentService {
@@ -13,7 +12,8 @@ export class DocumentService {
     private readonly documentRepository: Repository<Document>,
     @InjectRepository(Candidat)
     private candidatRepository: Repository<Candidat>,
-  ) {}
+  ) { }
+
 
   async createDocument(
     createDocumentDto: CreateDocumentDto,
@@ -32,6 +32,21 @@ export class DocumentService {
       throw error;
     }
   }
+
+  async getDocumentsByCandidatId(candidatId: number): Promise<string[]> {
+    const documents = await this.documentRepository
+      .createQueryBuilder('document')
+      .select('document.type', 'type')
+      .leftJoin('document.candidat', 'candidat')
+      .where('candidat.id_candidat = :candidatId', { candidatId })
+      .andWhere('document.status = :status', { status: 'pending' }) 
+      .getRawMany();
+
+    return documents.map((document) => document.type);
+  }
+
+
+
 
   async findOne(options: FindOneOptions<Document>): Promise<Document> {
     const document = await this.documentRepository.findOne(options);

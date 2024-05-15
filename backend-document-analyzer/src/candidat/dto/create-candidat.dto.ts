@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsNotEmpty, IsString, IsEmail, IsOptional, IsArray, ValidateNested } from 'class-validator';
-import { CreateDocumentDto } from 'src/document/dto/create-document.dto';
+import { IsNotEmpty, IsString, IsEmail, IsArray } from 'class-validator';
 
 export class CreateCandidatDto {
   @ApiProperty()
@@ -15,9 +13,8 @@ export class CreateCandidatDto {
   @IsEmail()
   email: string;
 
-  @ValidateNested()
+  @ApiProperty()
+  @IsNotEmpty()
   @IsArray()
-  @Type(() => CreateDocumentDto)
-  @IsOptional()
-  docs: CreateDocumentDto[];
+  documents: string[];
 }

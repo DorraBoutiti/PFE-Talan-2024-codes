@@ -25,7 +25,7 @@ import {
 } from '@nestjs/swagger';
 import * as path from 'path';
 import { createReadStream } from 'fs';
-import { InformationsExtraitesService } from 'src/informations-extraites/informations-extraites.service';
+import { InformationsExtraitesService } from '../informations-extraites/informations-extraites.service';
 import axios from 'axios';
 import { HttpService } from '@nestjs/axios';
 
@@ -80,7 +80,8 @@ export class DocumentController {
 
       return response.status(HttpStatus.CREATED).json({
         message: 'Document created successfully',
-        status: HttpStatus.CREATED,        
+        status: HttpStatus.CREATED,    
+        document: newDocument,
       });
     } catch (error) {
       console.error('Error creating document:', error);
@@ -90,6 +91,25 @@ export class DocumentController {
       });
     }
   }
+  
+  @Get('Candidat/:candidatId')
+  @ApiOperation({ summary: 'Get all documents for a candidate' })
+  @ApiParam({
+    name: 'candidatId',
+    description: 'Candidat ID',
+    type: 'number',
+  })
+  async getDocumentsByCandidatId(@Param('candidatId') candidatId: number) {
+    try {
+      return await this.documentService.getDocumentsByCandidatId(candidatId);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
+  }
+
 
   @Get('file/folder/:folder/:img')
   @ApiOperation({ summary: 'Read a file' })

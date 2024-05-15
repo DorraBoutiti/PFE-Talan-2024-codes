@@ -8,6 +8,7 @@
     "start:db": "docker-compose up mysql-db",
     "start:back": "docker-compose up backend-document-analyzer --renew-anon-volumes",
     "start:front": "docker-compose up frontend-document-analyzer --renew-anon-volumes",
+    "start:all": "docker-compose up -d",
     "clean": "docker-compose down -v"
   },
   "author": "Talan Consulting Tunisie",

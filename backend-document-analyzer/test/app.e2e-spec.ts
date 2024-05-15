@@ -16,6 +16,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
+    console.log('Hello World from /test/app.e2e-spec.ts!');
     return request(app.getHttpServer())
       .get('/')
       .expect(200)

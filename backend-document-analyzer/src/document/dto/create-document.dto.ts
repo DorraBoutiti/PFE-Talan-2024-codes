@@ -7,8 +7,8 @@ import {
   IsOptional,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateInformationsExtraiteDto } from 'src/informations-extraites/dto/create-informations-extraite.dto';
-import { Candidat } from 'src/candidat/entities/candidat.entity';
+import { CreateInformationsExtraiteDto } from '../../informations-extraites/dto/create-informations-extraite.dto';
+import { Candidat } from '../../candidat/entities/candidat.entity';
 
 export class CreateDocumentDto {
   @IsNotEmpty()
