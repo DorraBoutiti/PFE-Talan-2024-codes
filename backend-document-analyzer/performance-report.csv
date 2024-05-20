@@ -1,0 +1,41 @@
+NAME,DURATION,STATUS
+DocumentService should be defined,161,passed
+DocumentService createDocument should create a new document,68,passed
+DocumentService findOne should find a document by options,48,passed
+DocumentService findOne should throw NotFoundException if document not found,76,passed
+DocumentService findById should find a document by id,20,passed
+DocumentService findById should throw NotFoundException if document not found,24,passed
+DocumentService addDocumentForUser should add a document for a user,10,passed
+DocumentService addDocumentForUser should throw error if user not found,7,passed
+CandidatService should be defined,157,passed
+CandidatService createCandidat should create a new candidat and send confirmation email,69,passed
+CandidatService findAll should return all candidats,36,passed
+CandidatService findOne should return a candidat by id,20,passed
+CandidatService findOne should throw NotFoundException if candidat is not found,91,passed
+CandidatService update should update a candidat by id,16,passed
+CandidatService update should throw NotFoundException if candidat is not found,15,passed
+CandidatService remove should remove a candidat by id,5,passed
+CandidatService remove should throw NotFoundException if candidat is not found,17,passed
+CandidatService search should return candidats matching the query,17,passed
+CandidatService search should return an empty array if no candidats match the query,12,passed
+InformationsExtraitesService should be defined,37,passed
+InformationsExtraitesService addInformationsExtraiteForDocument should add information extraite for a document,11,passed
+CandidatController should be defined,61,passed
+CandidatController #createCandidat should call service.createCandidat and return the created candidat,17,passed
+CandidatController #createCandidat should return internal server error if service throws an error,17,passed
+CandidatController #findAll should return all candidats,21,passed
+CandidatController #findAll should return internal server error if service throws an error,11,passed
+CandidatController #findOne should return a specific candidat,8,passed
+CandidatController #findOne should return internal server error if service throws an error,7,passed
+CandidatController #update should update a specific candidat,9,passed
+CandidatController #update should return internal server error if service throws an error,23,passed
+CandidatController #remove should remove a specific candidat,13,passed
+CandidatController #remove should return internal server error if service throws an error,5,passed
+CandidatController #searchCandidats should search candidats,13,passed
+CandidatController #searchCandidats should return internal server error if service throws an error,4,passed
+InformationsExtraitesController should be defined,49,passed
+DocumentController should be defined,19,passed
+DocumentController should create a new document,36,passed
+DocumentController should handle invalid file upload,15,passed
+DocumentController should get documents by candidat ID,19,passed
+DocumentController should find a document by ID,5,passed

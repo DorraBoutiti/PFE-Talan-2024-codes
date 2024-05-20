@@ -63,6 +63,22 @@ services:
       
     networks:
       - default
+  
+  module-upload:
+    container_name: module-upload
+    build: 
+      context: ./module_upload
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $MODULE_UPLOAD_LOCAL_PORT:$MODULE_UPLOAD_DOCKER_PORT
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./module_upload:/app      
+    networks:
+      - default
 
 volumes: 
   mysql-volume:

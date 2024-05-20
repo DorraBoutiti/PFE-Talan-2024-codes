@@ -1,0 +1,151 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "HrDocumentAnalyzer API",
+        "version": "1.0.0"
+    },
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/image-to-base64": {
+            "post": {
+                "summary": "Convert image to base64",
+                "consumes": ["multipart/form-data"],
+                "parameters": [{
+                    "name": "image",
+                    "in": "formData",
+                    "required": true,
+                    "type": "file",
+                    "description": "The image file to be converted to base64."
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "base64": {
+                                    "type": "string",
+                                    "description": "Base64 encoded image."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/detect-file-type": {
+            "post": {
+                "summary": "Detect file type",
+                "consumes": ["multipart/form-data"],
+                "parameters": [{
+                    "name": "file",
+                    "in": "formData",
+                    "required": true,
+                    "type": "file",
+                    "description": "The file whose type is to be detected."
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "file_type": {
+                                    "type": "string",
+                                    "description": "Detected file type."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/pdf-to-images": {
+            "post": {
+                "summary": "Convert PDF to images",
+                "consumes": ["multipart/form-data"],
+                "parameters": [{
+                    "name": "pdf",
+                    "in": "formData",
+                    "required": true,
+                    "type": "file",
+                    "description": "The PDF file to be converted to images."
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "images": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "description": "List of base64 encoded images."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/docx-to-images": {
+            "post": {
+                "summary": "Convert DOCX to images",
+                "consumes": ["multipart/form-data"],
+                "parameters": [{
+                    "name": "docx",
+                    "in": "formData",
+                    "required": true,
+                    "type": "file",
+                    "description": "The DOCX file to be converted to images."
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "images": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "description": "List of base64 encoded images."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    }
+}

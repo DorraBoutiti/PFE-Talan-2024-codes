@@ -74,16 +74,16 @@ export class InformationsExtraitesController {
     // );
   }
 
-  @Delete(':id')
-  @ApiOperation({ summary: 'Delete an information extraite' })
-  @ApiParam({
-    name: 'id',
-    description: 'Information extraite ID',
-    type: 'string',
-  })
-  remove(@Param('id') id: string) {
-    //return this.informationsExtraitesService.remove(+id);
-  }
+  // @Delete(':id')
+  // @ApiOperation({ summary: 'Delete an information extraite' })
+  // @ApiParam({
+  //   name: 'id',
+  //   description: 'Information extraite ID',
+  //   type: 'string',
+  // })
+  // remove(@Param('id') id: string) {
+  //   //return this.informationsExtraitesService.remove(+id);
+  // }
   // @Post(':documentId')
   // @ApiOperation({ summary: 'Add informations extraite for a document' })
   // @ApiParam({ name: 'documentId', description: 'Document ID', type: 'number' })

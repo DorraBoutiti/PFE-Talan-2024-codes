@@ -36,24 +36,24 @@ export class CandidatController {
   @ApiBadRequestResponse({ description: 'Failed to create candidat.' })
   @ApiInternalServerErrorResponse({ description: 'Internal server error.' })
   async createCandidat(
-    @Body() createCandidatDto: CreateCandidatDto,
-    @Res() response,
-  ) {
-    try {
-      const candidat =
-        await this.candidatService.createCandidat(createCandidatDto);
-      return response.status(HttpStatus.CREATED).json({
-        message: 'Candidat created successfully',
-        data: candidat,
-      });
-    } catch (error) {
-      return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-        message: 'Failed to create candidat',
-        error: error.message,
-        data: null,
-      });
-    }
+  @Body() createCandidatDto: CreateCandidatDto,
+  @Res() response,
+) {
+  try {
+    const candidat = await this.candidatService.createCandidat(createCandidatDto);
+    return response.status(HttpStatus.CREATED).json({
+      message: 'Candidat created successfully',
+      data: candidat,
+    });
+  } catch (error) {
+    return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+      message: 'Failed to create candidat',
+      error: error.message,
+      data: null,
+    });
   }
+}
+
   
   @Get('/all')
   @ApiResponse({ status: HttpStatus.OK, description: 'Returns all candidats.' })
@@ -157,6 +157,13 @@ export class CandidatController {
       },
     },
   })
+  /**
+   * A function to search for candidats based on the provided query.
+   *
+   * @param {string} query - The search query for candidats
+   * @param {Response} response - The response object to send the search results
+   * @return {Promise<void>} A Promise that resolves with the search results or rejects with an error message
+   */
   async searchCandidats(@Body('query') query: string, @Res() response) {
     try {
       const candidats = await this.candidatService.search(query);      

@@ -27,7 +27,7 @@ import * as path from 'path';
 import { createReadStream } from 'fs';
 import { InformationsExtraitesService } from '../informations-extraites/informations-extraites.service';
 import axios from 'axios';
-import { HttpService } from '@nestjs/axios';
+//import { HttpService } from '@nestjs/axios';
 
 @ApiTags('Document')
 @Controller('document')
@@ -35,10 +35,23 @@ export class DocumentController {
   constructor(
     private readonly documentService: DocumentService,
     private readonly informationsExtraitesService: InformationsExtraitesService,
-    private readonly httpService: HttpService,
-  ) {}
+    //private readonly httpService: HttpService,
+  ) { }
 
   @Post()
+  @ApiOperation({ summary: 'Create a document' })
+  @ApiResponse({ status: HttpStatus.CREATED, description: 'Document created successfully' })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Invalid file uploaded' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: { type: 'string', format: 'binary' },
+        candidatId: { type: 'number' },
+      },
+    },
+  })
   @UseInterceptors(
     FileInterceptor('file', {
       storage: diskStorage({
@@ -54,24 +67,25 @@ export class DocumentController {
     @Body('candidatId') candidatId: number,
     @Res() response,
   ) {
+    if (!file || !file.filename || file == null) {      
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        message: 'Invalid file uploaded',
+        status: HttpStatus.BAD_REQUEST,
+      });
+    }
     try {
-      if (!file || !file.filename) {
-        return response.status(HttpStatus.BAD_REQUEST).json({
-          message: 'Invalid file uploaded',
-          status: HttpStatus.BAD_REQUEST,
-        });
-      }      
+
       let FormData = require('form-data');
       const formData = new FormData();
-      formData.append('file', createReadStream(file.path), file.originalname);      
-      const apiUrl = process.env.URL_MODULE_DOWNLOAD;
-      const headers = formData.getHeaders();
-      const responseFromFlask = await axios.post(apiUrl, formData, { headers });      
+      formData.append('file', createReadStream(file.path), file.originalname);
+      //const apiUrl = process.env.URL_MODULE_DOWNLOAD;
+      //const headers = formData.getHeaders();
+      //const responseFromFlask = await axios.post(apiUrl, formData, { headers });      
       const createDocumentDto = new CreateDocumentDto();
 
       createDocumentDto.nom = file.originalname;
       createDocumentDto.type = 'document';
-      createDocumentDto.file = responseFromFlask.data;
+      createDocumentDto.file = 'helllloooonnkhbksnd,lckldckjb lnkhnnflknkjsssssssss';
       createDocumentDto.status = 'Status';
       const newDocument = await this.documentService.addDocumentForUser(
         candidatId,
@@ -80,7 +94,7 @@ export class DocumentController {
 
       return response.status(HttpStatus.CREATED).json({
         message: 'Document created successfully',
-        status: HttpStatus.CREATED,    
+        status: HttpStatus.CREATED,
         document: newDocument,
       });
     } catch (error) {
@@ -91,7 +105,9 @@ export class DocumentController {
       });
     }
   }
-  
+
+
+
   @Get('Candidat/:candidatId')
   @ApiOperation({ summary: 'Get all documents for a candidate' })
   @ApiParam({
@@ -111,25 +127,7 @@ export class DocumentController {
   }
 
 
-  @Get('file/folder/:folder/:img')
-  @ApiOperation({ summary: 'Read a file' })
-  @ApiParam({
-    name: 'folder',
-    description: 'Folder containing the file',
-    type: 'string',
-  })
-  @ApiParam({
-    name: 'img',
-    description: 'Image file',
-    type: 'string',
-  })
-  readFile(
-    @Param('folder') folder: string,
-    @Param('img') img: string,
-  ): StreamableFile {
-    const file = createReadStream(path.join(process.cwd(), '', folder, img));
-    return new StreamableFile(file);
-  }
+
 
   @Get(':id')
   @ApiOperation({ summary: 'Find a document by ID' })

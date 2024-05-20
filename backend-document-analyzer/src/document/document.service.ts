@@ -39,7 +39,7 @@ export class DocumentService {
       .select('document.type', 'type')
       .leftJoin('document.candidat', 'candidat')
       .where('candidat.id_candidat = :candidatId', { candidatId })
-      .andWhere('document.status = :status', { status: 'pending' }) 
+      .andWhere('document.status = :status', { status: 'pending' })
       .getRawMany();
 
     return documents.map((document) => document.type);
@@ -56,7 +56,7 @@ export class DocumentService {
     return document;
   }
   async findById(id: number): Promise<Document> {
-    const document = await this.documentRepository.findOneBy({ id });
+    const document = await this.documentRepository.findOne({ where: { id } });
 
     if (!document) {
       throw new NotFoundException(`Document with ID ${id} not found`);
@@ -64,6 +64,7 @@ export class DocumentService {
 
     return document;
   }
+
 
   async addDocumentForUser(
     userId: number,

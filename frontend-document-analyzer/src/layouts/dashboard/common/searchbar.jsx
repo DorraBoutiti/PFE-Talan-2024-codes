@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
+
 import Slide from '@mui/material/Slide';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Autocomplete from '@mui/material/Autocomplete';
-import { SearchResultsList } from '../../searchBar/SearchResultsList'; // Import SearchResultsList component
 
-import Iconify from 'src/components/iconify';
+import Iconify from '../../../components/iconify';
 import * as api from '../../../services/service1';
+import { SearchResultsList } from '../../searchBar/SearchResultsList';
 
 const HEADER_MOBILE = 64;
 const HEADER_DESKTOP = 92;
@@ -23,7 +23,7 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
   display: 'flex',
   position: 'absolute',
   alignItems: 'center',
-  flexDirection: 'column', // Added to align items vertically
+  flexDirection: 'column', 
   height: HEADER_MOBILE,
   padding: theme.spacing(0, 3),
   boxShadow: theme.customShadows.z8,
@@ -58,12 +58,12 @@ export default function Searchbar() {
     setOpen(false);
   };
 
-  const handleSelectOption = (event, option) => {
-    if (option) {
-      console.log(option.id_candidat);
-    }
-    handleClose();
-  };
+  // const handleSelectOption = (event, option) => {
+  //   if (option) {
+  //     console.log(option.id_candidat);
+  //   }
+  //   handleClose();
+  // };
 
   return (
     <ClickAwayListener onClickAway={handleClose}>

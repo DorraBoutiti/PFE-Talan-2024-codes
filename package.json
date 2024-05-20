@@ -5,9 +5,11 @@
   "scripts": {
     "build:back": "docker-compose build backend-document-analyzer",
     "build:front": "docker-compose build frontend-document-analyzer",
+    "build:module": "docker-compose build module-upload",
     "start:db": "docker-compose up mysql-db",
     "start:back": "docker-compose up backend-document-analyzer --renew-anon-volumes",
     "start:front": "docker-compose up frontend-document-analyzer --renew-anon-volumes",
+    "start:module": "docker-compose up module-upload --renew-anon-volumes",
     "start:all": "docker-compose up -d",
     "clean": "docker-compose down -v"
   },

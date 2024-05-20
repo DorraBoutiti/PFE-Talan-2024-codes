@@ -12,11 +12,9 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { alpha, useTheme } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { bgGradient } from 'src/theme/css';
+import { bgGradient } from '../../theme/css';
+import Logo from '../../components/logo';
 import  SearchBar  from '../../layouts/dashboard/common/searchbar';
-
-import Logo from 'src/components/logo';
-
 import * as api from '../../services/service1';
 
 const itemDescriptions = {
@@ -79,10 +77,10 @@ export default function AddCandidatView() {
   };
 
   // Define setResults function
-  const setResults = (results) => {
-    // Your logic to handle results
-    console.log(results);
-  };
+  // const setResults = (results) => {
+  //   // Your logic to handle results
+  //   console.log(results);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

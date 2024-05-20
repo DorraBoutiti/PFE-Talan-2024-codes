@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="40" failures="0" errors="0" time="35.635">
+  <testsuite name="DocumentService" errors="0" failures="0" skipped="0" timestamp="2024-05-16T20:42:21" time="29.14" tests="8">
+    <testcase classname="DocumentService should be defined" name="DocumentService should be defined" time="0.161">
+    </testcase>
+    <testcase classname="DocumentService createDocument should create a new document" name="DocumentService createDocument should create a new document" time="0.068">
+    </testcase>
+    <testcase classname="DocumentService findOne should find a document by options" name="DocumentService findOne should find a document by options" time="0.048">
+    </testcase>
+    <testcase classname="DocumentService findOne should throw NotFoundException if document not found" name="DocumentService findOne should throw NotFoundException if document not found" time="0.076">
+    </testcase>
+    <testcase classname="DocumentService findById should find a document by id" name="DocumentService findById should find a document by id" time="0.02">
+    </testcase>
+    <testcase classname="DocumentService findById should throw NotFoundException if document not found" name="DocumentService findById should throw NotFoundException if document not found" time="0.024">
+    </testcase>
+    <testcase classname="DocumentService addDocumentForUser should add a document for a user" name="DocumentService addDocumentForUser should add a document for a user" time="0.01">
+    </testcase>
+    <testcase classname="DocumentService addDocumentForUser should throw error if user not found" name="DocumentService addDocumentForUser should throw error if user not found" time="0.007">
+    </testcase>
+  </testsuite>
+  <testsuite name="CandidatService" errors="0" failures="0" skipped="0" timestamp="2024-05-16T20:42:21" time="29.422" tests="11">
+    <testcase classname="CandidatService should be defined" name="CandidatService should be defined" time="0.157">
+    </testcase>
+    <testcase classname="CandidatService createCandidat should create a new candidat and send confirmation email" name="CandidatService createCandidat should create a new candidat and send confirmation email" time="0.069">
+    </testcase>
+    <testcase classname="CandidatService findAll should return all candidats" name="CandidatService findAll should return all candidats" time="0.036">
+    </testcase>
+    <testcase classname="CandidatService findOne should return a candidat by id" name="CandidatService findOne should return a candidat by id" time="0.02">
+    </testcase>
+    <testcase classname="CandidatService findOne should throw NotFoundException if candidat is not found" name="CandidatService findOne should throw NotFoundException if candidat is not found" time="0.091">
+    </testcase>
+    <testcase classname="CandidatService update should update a candidat by id" name="CandidatService update should update a candidat by id" time="0.016">
+    </testcase>
+    <testcase classname="CandidatService update should throw NotFoundException if candidat is not found" name="CandidatService update should throw NotFoundException if candidat is not found" time="0.015">
+    </testcase>
+    <testcase classname="CandidatService remove should remove a candidat by id" name="CandidatService remove should remove a candidat by id" time="0.005">
+    </testcase>
+    <testcase classname="CandidatService remove should throw NotFoundException if candidat is not found" name="CandidatService remove should throw NotFoundException if candidat is not found" time="0.017">
+    </testcase>
+    <testcase classname="CandidatService search should return candidats matching the query" name="CandidatService search should return candidats matching the query" time="0.017">
+    </testcase>
+    <testcase classname="CandidatService search should return an empty array if no candidats match the query" name="CandidatService search should return an empty array if no candidats match the query" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="InformationsExtraitesService" errors="0" failures="0" skipped="0" timestamp="2024-05-16T20:42:50" time="1.479" tests="2">
+    <testcase classname="InformationsExtraitesService should be defined" name="InformationsExtraitesService should be defined" time="0.037">
+    </testcase>
+    <testcase classname="InformationsExtraitesService addInformationsExtraiteForDocument should add information extraite for a document" name="InformationsExtraitesService addInformationsExtraiteForDocument should add information extraite for a document" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="CandidatController" errors="0" failures="0" skipped="0" timestamp="2024-05-16T20:42:21" time="31.74" tests="13">
+    <testcase classname="CandidatController should be defined" name="CandidatController should be defined" time="0.061">
+    </testcase>
+    <testcase classname="CandidatController #createCandidat should call service.createCandidat and return the created candidat" name="CandidatController #createCandidat should call service.createCandidat and return the created candidat" time="0.017">
+    </testcase>
+    <testcase classname="CandidatController #createCandidat should return internal server error if service throws an error" name="CandidatController #createCandidat should return internal server error if service throws an error" time="0.017">
+    </testcase>
+    <testcase classname="CandidatController #findAll should return all candidats" name="CandidatController #findAll should return all candidats" time="0.021">
+    </testcase>
+    <testcase classname="CandidatController #findAll should return internal server error if service throws an error" name="CandidatController #findAll should return internal server error if service throws an error" time="0.011">
+    </testcase>
+    <testcase classname="CandidatController #findOne should return a specific candidat" name="CandidatController #findOne should return a specific candidat" time="0.008">
+    </testcase>
+    <testcase classname="CandidatController #findOne should return internal server error if service throws an error" name="CandidatController #findOne should return internal server error if service throws an error" time="0.007">
+    </testcase>
+    <testcase classname="CandidatController #update should update a specific candidat" name="CandidatController #update should update a specific candidat" time="0.009">
+    </testcase>
+    <testcase classname="CandidatController #update should return internal server error if service throws an error" name="CandidatController #update should return internal server error if service throws an error" time="0.023">
+    </testcase>
+    <testcase classname="CandidatController #remove should remove a specific candidat" name="CandidatController #remove should remove a specific candidat" time="0.013">
+    </testcase>
+    <testcase classname="CandidatController #remove should return internal server error if service throws an error" name="CandidatController #remove should return internal server error if service throws an error" time="0.005">
+    </testcase>
+    <testcase classname="CandidatController #searchCandidats should search candidats" name="CandidatController #searchCandidats should search candidats" time="0.013">
+    </testcase>
+    <testcase classname="CandidatController #searchCandidats should return internal server error if service throws an error" name="CandidatController #searchCandidats should return internal server error if service throws an error" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="InformationsExtraitesController" errors="0" failures="0" skipped="0" timestamp="2024-05-16T20:42:50" time="3.162" tests="1">
+    <testcase classname="InformationsExtraitesController should be defined" name="InformationsExtraitesController should be defined" time="0.049">
+    </testcase>
+  </testsuite>
+  <testsuite name="DocumentController" errors="0" failures="0" skipped="0" timestamp="2024-05-16T20:42:52" time="3.383" tests="5">
+    <testcase classname="DocumentController should be defined" name="DocumentController should be defined" time="0.019">
+    </testcase>
+    <testcase classname="DocumentController should create a new document" name="DocumentController should create a new document" time="0.036">
+    </testcase>
+    <testcase classname="DocumentController should handle invalid file upload" name="DocumentController should handle invalid file upload" time="0.015">
+    </testcase>
+    <testcase classname="DocumentController should get documents by candidat ID" name="DocumentController should get documents by candidat ID" time="0.019">
+    </testcase>
+    <testcase classname="DocumentController should find a document by ID" name="DocumentController should find a document by ID" time="0.005">
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,18 +1,18 @@
+import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import LoadingButton from '@mui/lab/LoadingButton'; // Corrected import
+import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 
-import { bgGradient } from 'src/theme/css';
+import { bgGradient } from '../../theme/css';
 
-import Logo from 'src/components/logo';
-import * as api from 'src/services/service1';
+import Logo from '../../components/logo';
+import * as api from '../../services/service1';
 
 const itemDescriptions = {
   DOC01: 'Maroc - Contrat de travail',
@@ -67,7 +67,7 @@ export default function ChatbotView() {
       }
     };
     fetchDocuments();
-  }, []);
+  }, [id]);
 
   const handleFileChange = (event) => {
     setFiles([...files, ...event.target.files]);
@@ -76,7 +76,7 @@ export default function ChatbotView() {
   const handleFileUpload = () => {
     // Handle file upload logic here
     console.log("Files uploaded:", files);
-    setTimeout(() => setCurrentMessageIndex(1), 50000);
+    setTimeout(() => setCurrentMessageIndex(1), 5000);
     setDOCUMENTS([]);
     // Optionally, you can reset the file state after upload
     // setFiles([]);
@@ -84,31 +84,29 @@ export default function ChatbotView() {
 
   const renderDocuments = () => {
     if (DOCUMENTS.length === 0) {
-      //setTimeout(() => setCurrentMessageIndex(1), 5000); // Change to show file upload after 5 seconds
       return <Typography variant="body1">Documents are already uploaded.</Typography>;
-    } else {
-      return (
-        <>
-          <Typography variant="body1">Here is the list of documents:</Typography>
-          <ul>
-            {DOCUMENTS.map((document, index) => (
-              <li key={index}>{itemDescriptions[document]}</li>
-            ))}
-          </ul>
-          <input type="file" multiple onChange={handleFileChange} />
-          <LoadingButton
-            fullWidth
-            size="large"
-            type="button" // Change the type to "button"
-            variant="contained"
-            color="inherit"
-            onClick={handleFileUpload} // Call handleFileUpload on click
-          >
-            Upload
-          </LoadingButton>
-        </>
-      );
     }
+    return (
+      <>
+        <Typography variant="body1">Here is the list of documents:</Typography>
+        <ul>
+          {DOCUMENTS.map((document, index) => (
+            <li key={index}>{itemDescriptions[document]}</li>
+          ))}
+        </ul>
+        <input type="file" multiple onChange={handleFileChange} />
+        <LoadingButton
+          fullWidth
+          size="large"
+          type="button"
+          variant="contained"
+          color="inherit"
+          onClick={handleFileUpload}
+        >
+          Upload
+        </LoadingButton>
+      </>
+    );
   };
 
   return (

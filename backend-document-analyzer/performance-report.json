@@ -1,0 +1,202 @@
+[
+  {
+    "duration": 161,
+    "fullName": "DocumentService should be defined",
+    "status": "passed"
+  },
+  {
+    "duration": 68,
+    "fullName": "DocumentService createDocument should create a new document",
+    "status": "passed"
+  },
+  {
+    "duration": 48,
+    "fullName": "DocumentService findOne should find a document by options",
+    "status": "passed"
+  },
+  {
+    "duration": 76,
+    "fullName": "DocumentService findOne should throw NotFoundException if document not found",
+    "status": "passed"
+  },
+  {
+    "duration": 20,
+    "fullName": "DocumentService findById should find a document by id",
+    "status": "passed"
+  },
+  {
+    "duration": 24,
+    "fullName": "DocumentService findById should throw NotFoundException if document not found",
+    "status": "passed"
+  },
+  {
+    "duration": 10,
+    "fullName": "DocumentService addDocumentForUser should add a document for a user",
+    "status": "passed"
+  },
+  {
+    "duration": 7,
+    "fullName": "DocumentService addDocumentForUser should throw error if user not found",
+    "status": "passed"
+  },
+  {
+    "duration": 157,
+    "fullName": "CandidatService should be defined",
+    "status": "passed"
+  },
+  {
+    "duration": 69,
+    "fullName": "CandidatService createCandidat should create a new candidat and send confirmation email",
+    "status": "passed"
+  },
+  {
+    "duration": 36,
+    "fullName": "CandidatService findAll should return all candidats",
+    "status": "passed"
+  },
+  {
+    "duration": 20,
+    "fullName": "CandidatService findOne should return a candidat by id",
+    "status": "passed"
+  },
+  {
+    "duration": 91,
+    "fullName": "CandidatService findOne should throw NotFoundException if candidat is not found",
+    "status": "passed"
+  },
+  {
+    "duration": 16,
+    "fullName": "CandidatService update should update a candidat by id",
+    "status": "passed"
+  },
+  {
+    "duration": 15,
+    "fullName": "CandidatService update should throw NotFoundException if candidat is not found",
+    "status": "passed"
+  },
+  {
+    "duration": 5,
+    "fullName": "CandidatService remove should remove a candidat by id",
+    "status": "passed"
+  },
+  {
+    "duration": 17,
+    "fullName": "CandidatService remove should throw NotFoundException if candidat is not found",
+    "status": "passed"
+  },
+  {
+    "duration": 17,
+    "fullName": "CandidatService search should return candidats matching the query",
+    "status": "passed"
+  },
+  {
+    "duration": 12,
+    "fullName": "CandidatService search should return an empty array if no candidats match the query",
+    "status": "passed"
+  },
+  {
+    "duration": 37,
+    "fullName": "InformationsExtraitesService should be defined",
+    "status": "passed"
+  },
+  {
+    "duration": 11,
+    "fullName": "InformationsExtraitesService addInformationsExtraiteForDocument should add information extraite for a document",
+    "status": "passed"
+  },
+  {
+    "duration": 61,
+    "fullName": "CandidatController should be defined",
+    "status": "passed"
+  },
+  {
+    "duration": 17,
+    "fullName": "CandidatController #createCandidat should call service.createCandidat and return the created candidat",
+    "status": "passed"
+  },
+  {
+    "duration": 17,
+    "fullName": "CandidatController #createCandidat should return internal server error if service throws an error",
+    "status": "passed"
+  },
+  {
+    "duration": 21,
+    "fullName": "CandidatController #findAll should return all candidats",
+    "status": "passed"
+  },
+  {
+    "duration": 11,
+    "fullName": "CandidatController #findAll should return internal server error if service throws an error",
+    "status": "passed"
+  },
+  {
+    "duration": 8,
+    "fullName": "CandidatController #findOne should return a specific candidat",
+    "status": "passed"
+  },
+  {
+    "duration": 7,
+    "fullName": "CandidatController #findOne should return internal server error if service throws an error",
+    "status": "passed"
+  },
+  {
+    "duration": 9,
+    "fullName": "CandidatController #update should update a specific candidat",
+    "status": "passed"
+  },
+  {
+    "duration": 23,
+    "fullName": "CandidatController #update should return internal server error if service throws an error",
+    "status": "passed"
+  },
+  {
+    "duration": 13,
+    "fullName": "CandidatController #remove should remove a specific candidat",
+    "status": "passed"
+  },
+  {
+    "duration": 5,
+    "fullName": "CandidatController #remove should return internal server error if service throws an error",
+    "status": "passed"
+  },
+  {
+    "duration": 13,
+    "fullName": "CandidatController #searchCandidats should search candidats",
+    "status": "passed"
+  },
+  {
+    "duration": 4,
+    "fullName": "CandidatController #searchCandidats should return internal server error if service throws an error",
+    "status": "passed"
+  },
+  {
+    "duration": 49,
+    "fullName": "InformationsExtraitesController should be defined",
+    "status": "passed"
+  },
+  {
+    "duration": 19,
+    "fullName": "DocumentController should be defined",
+    "status": "passed"
+  },
+  {
+    "duration": 36,
+    "fullName": "DocumentController should create a new document",
+    "status": "passed"
+  },
+  {
+    "duration": 15,
+    "fullName": "DocumentController should handle invalid file upload",
+    "status": "passed"
+  },
+  {
+    "duration": 19,
+    "fullName": "DocumentController should get documents by candidat ID",
+    "status": "passed"
+  },
+  {
+    "duration": 5,
+    "fullName": "DocumentController should find a document by ID",
+    "status": "passed"
+  }
+]

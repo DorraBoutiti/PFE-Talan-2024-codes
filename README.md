@@ -87,3 +87,64 @@ or
 docker-compose down -v
 ```
 This command will stop and remove all containers defined in the docker-compose.yml file and also remove any volumes associated with them.
+
+## Running Tests for the Upload Module
+To run tests for the Flask app, use the following command:
+
+```
+python run_tests.py
+```
+** Rapport de Tests **
+....................
+----------------------------------------------------------------------
+Ran 20 tests in 1.522s
+
+OK
+
+Coverage Report with Missing Lines:
+
+Name          Stmts   Miss  Cover   Missing
+-------------------------------------------
+server.py        80      1    99%   171
+test_app.py     111      1    99%   151
+-------------------------------------------
+TOTAL           191      2    99%
+
+
+## Utilisation
+# Cloner le Référentiel :
+
+```
+git clone https://github.com/DorraBoutiti/PFE-Talan-2024-codes/tree/HrDocumentAnalyzer---Dorra-Boutiti
+cd HrDocumentAnalyzer
+```
+
+# Créer le fichier .env avec les variables nécessaires :
+
+** env **
+
+```
+MYSQLDB_PASSWORD=your_mysql_password
+MYSQLDB_LOCAL_PORT=3306
+MYSQLDB_DOCKER_PORT=3306
+NESTJS_APP_LOCAL_PORT=3000
+NESTJS_APP_DOCKER_PORT=3000
+REACTJS_APP_LOCAL_PORT=3001
+REACTJS_APP_DOCKER_PORT=3001
+MODULE_UPLOAD_LOCAL_PORT=8000
+MODULE_UPLOAD_DOCKER_PORT=8000
+```
+# Documentation Swagger
+Backend
+- localhost:3030/api/
+Module Upload
+- localhost:8000/swagger/
+# Construire et Démarrer les Services :
+```
+npm run build:all
+npm run start:all
+```
+# Nettoyer les Volumes :
+```
+npm run clean
+```
