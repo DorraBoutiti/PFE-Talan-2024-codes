@@ -1,0 +1,30 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "HrDocumentAnalyzer API",
+    "description": "API documentation for the HrDocumentAnalyzer service",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8005",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get a greeting message",
+        "description": "Returns a greeting message",
+        "responses": {
+          "200": {
+            "description": "A greeting message",
+            "schema": {
+              "type": "string",
+              "example": "Hello from Module"
+            }
+          }
+        }
+      }
+    }
+  }
+}

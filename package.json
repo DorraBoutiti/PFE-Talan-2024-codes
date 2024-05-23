@@ -5,11 +5,25 @@
   "scripts": {
     "build:back": "docker-compose build backend-document-analyzer",
     "build:front": "docker-compose build frontend-document-analyzer",
-    "build:module": "docker-compose build module-upload",
+    "build:upload": "docker-compose build module-upload",
+    "build:stt": "docker-compose build module-stt",
+    "build:sirh": "docker-compose build module-sirh",
+    "build:image": "docker-compose build module_image_enhancement",
+    "build:extract": "docker-compose build module_extract_data",
+    "build:classif": "docker-compose build module-classification",
+    "build:ocr": "docker-compose build module_ocr",
+
     "start:db": "docker-compose up mysql-db",
     "start:back": "docker-compose up backend-document-analyzer --renew-anon-volumes",
     "start:front": "docker-compose up frontend-document-analyzer --renew-anon-volumes",
-    "start:module": "docker-compose up module-upload --renew-anon-volumes",
+    "start:upload": "docker-compose up module-upload --renew-anon-volumes",
+    "start:stt": "docker-compose up module-stt --renew-anon-volumes",
+    "start:sirh": "docker-compose up module-sirh --renew-anon-volumes",
+    "start:image": "docker-compose up module_image_enhancement --renew-anon-volumes",
+    "start:extract": "docker-compose up module_extract_data --renew-anon-volumes",
+    "start:classif": "docker-compose up module-classification --renew-anon-volumes",
+    "start:ocr": "docker-compose up module_ocr --renew-anon-volumes",
+
     "start:all": "docker-compose up -d",
     "clean": "docker-compose down -v"
   },

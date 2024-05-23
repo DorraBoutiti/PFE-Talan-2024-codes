@@ -80,5 +80,102 @@ services:
     networks:
       - default
 
+  module-stt:
+    container_name: module-stt
+    build: 
+      context: ./module_stt_competance
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $MODULE_STT_LOCAL_PORT:$MODULE_STT_DOCKER_PORT
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./module_stt_competance:/app
+    networks:
+      - default
+
+  module_sirh:
+    container_name: module_sirh
+    build:
+      context: ./module_sirh
+      dockerfile: Dockerfile    
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $MODULE_SIRH_LOCAL_PORT:$MODULE_SIRH_DOCKER_PORT
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./module_sirh:/app
+    networks:
+      - default
+
+  module_image_enhancement:
+    container_name: module_image_enhancement
+    build:
+      context: ./module_image_enhancement
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $MODULE_IMAGE_LOCAL_PORT:$MODULE_IMAGE_DOCKER_PORT
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./module_image_enhancement:/app
+    networks:
+      - default
+
+  module_extract_data:
+    container_name: module_extract_data
+    build:
+      context: ./module_extract_data
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $MODULE_EXTRACT_DATA_LOCAL_PORT:$MODULE_EXTRACT_DATA_DOCKER_PORT  
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./module_extract_data:/app
+    networks:
+      - default
+
+  module_classification:
+    container_name: module_classification
+    build:
+      context: ./module_classification
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $MODULE_CLASSIFICATION_DATA_LOCAL_PORT:$MODULE_CLASSIFICATION_DATA_DOCKER_PORT
+    tty: true
+    volumes:
+      - ./module_classification:/app
+    networks:
+      - default
+
+  module_ocr:
+    container_name: module_ocr
+    build:
+      context: ./module_ocr
+      dockerfile: Dockerfile
+    restart: unless-stopped    
+    ports:
+      - ${MODULE_OCR_LOCAL_PORT}:${MODULE_OCR_DOCKER_PORT}
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./module_ocr:/app
+    environment:
+      - MODULE_OCR_LOCAL_PORT=8003
+      - MODULE_OCR_DOCKER_PORT=8003
+    networks:
+      - default
+
 volumes: 
   mysql-volume:

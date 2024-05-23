@@ -4,7 +4,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from PIL import Image, UnidentifiedImageError
 import base64
 import magic
-import fitz  # PyMuPDF
+import fitz  
 from io import BytesIO
 import docx
 from flask_cors import CORS

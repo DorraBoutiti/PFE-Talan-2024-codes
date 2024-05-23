@@ -1,0 +1,317 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the API documentation for the Image Processing Microservice.",
+    "version": "1.0.0",
+    "title": "Image Processing Microservice"
+  },
+  "host": "localhost:8004",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "image",
+      "description": "Image operations"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/crop/image": {
+      "post": {
+        "tags": ["image"],
+        "summary": "Crop an image (file upload)",
+        "description": "Crop an image based on provided coordinates or automatically detects borders.",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "image",
+            "type": "file",
+            "required": true,
+            "description": "Image to be cropped"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cropped image",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cropped_image": {
+                  "type": "string",
+                  "format": "base64"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/crop/base64": {
+      "post": {
+        "tags": ["image"],
+        "summary": "Crop an image (base64 string)",
+        "description": "Crop an image based on provided coordinates or automatically detects borders.",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "image_base64": {
+                  "type": "string",
+                  "description": "Base64-encoded image to be cropped"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cropped image",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cropped_image": {
+                  "type": "string",
+                  "format": "base64"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/rotate/image": {
+      "post": {
+        "tags": ["image"],
+        "summary": "Rotate an image",
+        "description": "Rotate an image based on its EXIF orientation tag.",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "image",
+            "type": "file",
+            "required": true,
+            "description": "Image to be rotated"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rotated image",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rotated_image": {
+                  "type": "string",
+                  "format": "base64"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/rotate/base64": {
+      "post": {
+        "tags": ["image"],
+        "summary": "Rotate an image (base64 string)",
+        "description": "Rotate an image based on its EXIF orientation tag.",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string",
+                  "description": "Base64-encoded image to be rotated"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rotated image",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "rotated_image": {
+                  "type": "string",
+                  "format": "base64"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/enhance/base64": {
+      "post": {
+        "tags": ["image"],
+        "summary": "Enhance an image (base64 string)",
+        "description": "Enhance the quality of an image provided as a base64 string.",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string",
+                  "description": "Base64-encoded image to be enhanced"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Enhanced image",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string",
+                  "format": "base64"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/enhance/image": {
+      "post": {
+        "tags": ["image"],
+        "summary": "Enhance an image (file upload)",
+        "description": "Enhance the quality of an image uploaded as a file.",
+        "consumes": ["multipart/form-data"],
+        "produces": ["image/jpeg"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "image",
+            "type": "file",
+            "required": true
+          }],
+          "responses": {
+            "200": {
+              "description": "Rotated image",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rotated_image": {
+                    "type": "string",
+                    "format": "base64"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+    },
+    "/process-image": {
+  "post": {
+    "tags": ["image"],
+    "summary": "Process an image (base64 string)",
+    "description": "Process an image by rotating, enhancing, and cropping it.",
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "body",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "image_base64": {
+              "type": "string",
+              "description": "Base64-encoded image to be processed"
+            }
+          }
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Processed image",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "processed_image": {
+              "type": "string",
+              "format": "base64",
+              "description": "Base64-encoded processed image"
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad request"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}
+
+    }
+
+  }
+
