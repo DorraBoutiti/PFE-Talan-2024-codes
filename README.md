@@ -38,3 +38,148 @@ Chaque équipe suit un processus de contribution similaire pour pousser ses trav
    - Les responsables de chaque équipe sont chargés de fusionner ou réintégrer les branches des membres de leur équipe dans la branche principale, si et quand ils le jugent approprié.
 
 
+# Tavail Talent Management
+Le projet Talent Management est réalisé par Tawfik Brahim & Mehrez Ganouchi .
+
+# Application de Gestion des Talents
+```
+git clone https://github.com/DorraBoutiti/PFE-Talan-2024-codes/tree/TalentManagment---Tawfik-Brahim-&-Mehrez-Gannouchi
+cd TalentManagment
+```
+## Description
+
+L'application de gestion des talents est divisée en deux composants principaux :
+- **Talent-Management-recommender** : Contient des fonctionnalités d'IA générative, exécutées sur un serveur Flask.
+- **Talent-Management-web** : Contient les serveurs frontend et backend, y compris une application React, un serveur Node, et un autre serveur Flask.
+
+## Table des Matières
+- [Installation](#installation)
+  - [talent-management-recommender](#talent-management-recommender)
+  - [talent-management-web](#talent-management-web)
+- [Utilisation](#utilisation)
+- [Fonctionnalités](#fonctionnalités)
+- [Contribuer](#contribuer)
+- [Licence](#licence)
+- [Contact](#contact)
+
+## Installation
+
+### talent-management-recommender
+
+1. Clonez le dépôt et accédez au répertoire `talent-management-recommender` :
+    ```bash
+    cd talent-management-recommender
+    ```
+
+2. Créez un environnement virtuel :
+    - Sous Linux :
+        ```bash
+        python3 -m venv env
+        ```
+    - Sous Windows :
+        ```cmd
+        python -m venv env
+        ```
+
+3. Activez l'environnement virtuel :
+    - Sous Linux :
+        ```bash
+        source env/bin/activate
+        ```
+    - Sous Windows :
+        ```cmd
+        .\env\Scripts\activate
+        ```
+
+4. Installez les packages requis :
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+5. Exécutez le serveur Flask :
+    ```bash
+    python app.py
+    ```
+    Le serveur fonctionnera sur le port 4500.
+
+### talent-management-web
+
+#### Application React
+
+1. Accédez au répertoire `react-app` :
+    ```bash
+    cd react-app
+    ```
+
+2. Installez les dépendances et démarrez l'application :
+    ```bash
+    npm install
+    npm run start
+    ```
+    Ou avec yarn :
+    ```bash
+    yarn install
+    yarn start
+    ```
+    L'application fonctionnera sur le port 3000.
+
+#### Serveur Node
+
+1. Accédez au répertoire `node-server` :
+    ```bash
+    cd node-server
+    ```
+
+2. Installez les dépendances et démarrez le serveur :
+    ```bash
+    npm install
+    npm start
+    ```
+    Le serveur fonctionnera sur le port 5000.
+
+#### Serveur Flask
+
+1. Accédez au répertoire `flask-server` :
+    ```bash
+    cd flask-server
+    ```
+
+2. Créez un environnement virtuel s'il n'existe pas :
+    - Sous Linux :
+        ```bash
+        python3 -m venv venv
+        ```
+    - Sous Windows :
+        ```cmd
+        python -m venv venv
+        ```
+
+3. Activez l'environnement virtuel :
+    - Sous Linux :
+        ```bash
+        source venv/bin/activate
+        ```
+    - Sous Windows :
+        ```cmd
+        .\venv\Scripts\activate
+        ```
+
+4. Installez les packages requis :
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+5. Exécutez le serveur Flask :
+    ```bash
+    python app.py
+    ```
+    Le serveur fonctionnera sur le port 4500.
+
+## Utilisation
+
+Pour utiliser l'application de gestion des talents, assurez-vous que tous les serveurs sont en cours d'exécution comme décrit dans la section d'installation. Vous pouvez ensuite accéder au frontend via l'application React fonctionnant sur le port 3000.
+
+
+
+
+
