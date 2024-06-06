@@ -1,0 +1,15 @@
+openai
+llama_index
+llama-index-llms-openai
+llama-index-experimental
+langchain_openai
+langchain_community
+python-dotenv
+flask
+flask_cors
+numpy
+pandas
+tabulate
+mysqlclient
+imblearn
+scikit-learn==1.4.2
