@@ -18,7 +18,15 @@ app = Flask(__name__)
 
 # Function to read API key from file
 def read_api_key(file_path: str) -> str:
-    with open(file_path, 'r') as file:
+    """
+    Reads the API key from the given file.
+
+    Args:
+        file_path (str): The path to the file containing the API key.
+
+    Returns:
+        str: The API key read from the file.
+    """
         return file.read().strip()
 
 # Initialize OpenAI client
@@ -118,34 +126,110 @@ prompt_list = ["""You are a professional HR and talent management assistant bot 
 
 # Function to get API response
 def get_api_response(prompt: str, qp: QP) -> str:
+    """
+    Get API response from the query pipeline using the given prompt.
+
+    Args:
+        prompt (str): The prompt for the API.
+        qp (QP): The query pipeline instance.
+
+    Returns:
+        str: The API response.
+
+    Raises:
+        Exception: If an error occurs during the API request.
+
+    """
     try:
+        # Run the query pipeline with the given prompt
         response = qp.run(query_str=prompt)
+
+        # Return the content of the message from the API response
         return response.message.content
     except Exception as e:
+        # If an error occurs, log the exception and return a generic error message
         logging.exception('An error occurred:')
         return 'Something went wrong. Please try again later.'
 
 # Function to update the prompt list
 def update_prompt_list(message: str, prompt_list: list[str]) -> None:
+    """
+    Update the prompt list by appending a new message.
+
+    Args:
+        message (str): The new message to append to the prompt list.
+        prompt_list (list[str]): The current prompt list.
+
+    Returns:
+        None
+    """
+    # Append the new message to the prompt list
+    prompt_list.append(message)
     prompt_list.append(message)
 
 # Function to create prompt
 def create_prompt(message: str, prompt_list: list[str]) -> str:
+    """
+    Create a prompt by appending the new message to the prompt list and joining the list elements with line breaks.
+
+    Args:
+        message (str): The new message to append to the prompt list.
+        prompt_list (list[str]): The current prompt list.
+
+    Returns:
+        str: The newly created prompt.
+    """
+    # Append the new message to the prompt list
     update_prompt_list(message, prompt_list)
+    
+    # Join the list elements with line breaks
     return '\n'.join(prompt_list)
 
 # Function to get bot response
 def get_bot_response(message: str, prompt_list: list[str], qp: QP) -> str:
+    """
+    Get the response from the bot by creating a prompt and making an API request.
+
+    Args:
+        message (str): The new message to append to the prompt list.
+        prompt_list (list[str]): The current prompt list.
+        qp (QP): The query pipeline instance.
+
+    Returns:
+        str: The response from the bot.
+    """
+    # Create the prompt by appending the new message to the prompt list
     prompt = create_prompt(message, prompt_list)
+    
+    # Make the API request using the created prompt and query pipeline
     bot_response = get_api_response(prompt, qp)
+    
+    # Return the response from the bot
     return bot_response
 
 # API endpoint to receive messages from frontend
 @app.route('/rag/message', methods=['POST'])
 def receive_message():
+    """
+    API endpoint to receive messages from the frontend.
+
+    This endpoint receives a POST request with JSON data containing a 'message' field.
+    It then calls the get_bot_response function to get a response from the bot.
+    The response is returned as a JSON object with a 'message' field.
+
+    Returns:
+        A JSON object with a 'message' field containing the response from the bot.
+    """
+    # Get the JSON data from the request
     data = request.json
+
+    # Get the 'message' field from the JSON data
     user_input = data.get('message')
+
+    # Get the response from the bot using the user's input and the current prompt list
     response = get_bot_response(user_input, prompt_list, qp)
+
+    # Return the response as a JSON object with a 'message' field
     return jsonify({'message': response})
 
 # Entry point

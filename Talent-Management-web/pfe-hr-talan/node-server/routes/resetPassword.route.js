@@ -93,6 +93,7 @@ router.post("/:id/:token", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
+
 router.post("/:id", async (req, res) => {
   try {
     const passwordSchema = Joi.object({

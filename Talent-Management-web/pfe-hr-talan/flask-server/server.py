@@ -24,8 +24,21 @@ logging.basicConfig(level=logging.DEBUG)
 
 # Function to read API key from file
 def read_api_key(file_path: str) -> str:
+    """
+    Reads the API key from the given file.
+
+    Args:
+        file_path (str): The path to the file containing the API key.
+
+    Returns:
+        str: The API key read from the file.
+    """
+    # Open the file in read mode
     with open(file_path, 'r') as file:
+        # Read the content of the file, strip any leading or trailing whitespace
+        # and return the API key
         return file.read().strip()
+
 
 # Initialize OpenAI client
 api_key = read_api_key('hidden.txt')
@@ -116,35 +129,103 @@ prompt_list = []
 
 # Function to get API response
 def get_api_response(prompt: str, qp: QP) -> str:
+    """
+    Get API response from the query pipeline using the given prompt.
+
+    Args:
+        prompt (str): The prompt for the API.
+        qp (QP): The query pipeline instance.
+
+    Returns:
+        str: The API response.
+    """
     try:
+        # Run the query pipeline with the given prompt
         response = qp.run(query_str=prompt)
+        # Return the content of the message
         return response.message.content
     except Exception as e:
+        # If an error occurs, log the error and return a generic error message
         logging.exception('An error occurred:')
         return 'Something went wrong. Please try again later.'
 
 # Function to update the prompt list
 def update_prompt_list(message: str, prompt_list: list[str]) -> None:
+    """
+    Update the prompt list by appending a new message.
+
+    Args:
+        message (str): The new message to append to the prompt list.
+        prompt_list (list[str]): The current prompt list.
+
+    Returns:
+        None
+    """
+    # Append the new message to the prompt list
     prompt_list.append(message)
 
 # Function to create prompt
 def create_prompt(message: str, prompt_list: list[str]) -> str:
+    """
+    Create a prompt by appending the new message to the prompt list and joining the list elements with line breaks.
+
+    Args:
+        message (str): The new message to append to the prompt list.
+        prompt_list (list[str]): The current prompt list.
+
+    Returns:
+        str: The newly created prompt.
+    """
+    # Append the new message to the prompt list
     update_prompt_list(message, prompt_list)
-    return '\n'.join(prompt_list)
+    
+    # Join the list elements with line breaks
+    return '\n'.join(prompt_list)  # Return the newly created prompt
 
 # Function to get bot response
 def get_bot_response(message: str, prompt_list: list[str], qp: QP) -> str:
-    #prompt = create_prompt(message, prompt_list)
+    """
+    Get the response from the bot by making an API request with the given message.
+
+    Args:
+        message (str): The new message to append to the prompt list.
+        prompt_list (list[str]): The current prompt list.
+        qp (QP): The query pipeline instance.
+
+    Returns:
+        str: The response from the bot.
+    """
+    # Make the API request using the given message and query pipeline
     bot_response = get_api_response(message, qp)
+    
     return bot_response
+
 
 # API endpoint to receive messages from frontend
 @app.route('/rag/message', methods=['POST'])
 def receive_message():
+    """
+    API endpoint to receive messages from the frontend.
+
+    This endpoint receives a POST request with JSON data containing a 'message' field.
+    It then calls the get_bot_response function to get a response from the bot.
+    The response is returned as a JSON object with a 'message' field.
+
+    Returns:
+        A JSON object with a 'message' field containing the response from the bot.
+    """
+    # Get the JSON data from the request
     data = request.json
+
+    # Get the 'message' field from the JSON data
     user_input = data.get('message')
+
+    # Get the response from the bot using the user's input and the current prompt list
     response = get_bot_response(user_input, prompt_list, qp)
+
+    # Return the response as a JSON object with a 'message' field
     return jsonify({'message': response})
+
 
 #******************************end RAG*******************************
 #*********************************************************************
@@ -172,7 +253,17 @@ df['niveau'] = parse_list_column(df['niveau'])
 
 # Function to get radar data for two employees
 def get_radar_data(employee1_id, employee2_id):
-    try:
+    """
+    Retrieves the radar data for two employees based on their IDs.
+
+    Args:
+        employee1_id (int): The ID of the first employee.
+        employee2_id (int): The ID of the second employee.
+
+    Returns:
+        tuple: A tuple containing the common competencies, levels for employee1, and levels for employee2.
+              If either employee ID is not found, returns (None, None, None).
+    """
         # Retrieve the data for the two employees
         employee1_data = df[df['Matricule'] == employee1_id].iloc[0]
         employee2_data = df[df['Matricule'] == employee2_id].iloc[0]
@@ -190,6 +281,7 @@ def get_radar_data(employee1_id, employee2_id):
 
 # API endpoint to get radar data
 @app.route('/radar-data', methods=['POST'])
+
 def radar_data():
     data = request.json
     employee1_id = data.get('employee1_id')
@@ -206,12 +298,34 @@ def radar_data():
 
 @app.route('/matricules', methods=['GET'])
 def get_matricules():
+    """
+    Retrieves the unique matricules from the dataframe.
+
+    Returns:
+        A JSON object containing the unique matricules.
+    """
+    # Get the unique matricules from the dataframe
     matricules = df['Matricule'].unique().tolist()
+
+    # Return the unique matricules as a JSON object
     return jsonify(matricules)
 
 @app.route('/barchartdata', methods=['POST'])
 def bar_chart_data():
+    """
+    Retrieves the common competences and their corresponding levels for two employees and returns the data as JSON.
+    
+    Args:
+        employee1_id (int): The ID of the first employee.
+        employee2_id (int): The ID of the second employee.
+    
+    Returns:
+        A JSON object containing the common competences, their levels for employee1, and their levels for employee2.
+    """
+    # Retrieve the POST request data
     data = request.json
+    
+    # Get the IDs of the two employees
     employee1_id = data.get('employee1_id')
     employee2_id = data.get('employee2_id')
     
@@ -219,14 +333,14 @@ def bar_chart_data():
     employee1_data = df[df['Matricule'] == employee1_id].iloc[0]
     employee2_data = df[df['Matricule'] == employee2_id].iloc[0]
     
-    # Get common competences
+    # Get the common competences
     common_competences = list(set(employee1_data['competence']).intersection(employee2_data['competence']))
     
-    # Filter levels for common competences
+    # Filter the levels for the common competences
     levels_employee1 = [employee1_data['niveau'][employee1_data['competence'].index(comp)] for comp in common_competences]
     levels_employee2 = [employee2_data['niveau'][employee2_data['competence'].index(comp)] for comp in common_competences]
 
-    # Create dictionary to hold the data
+    # Create a dictionary to hold the data
     data = {
         'common_competences': common_competences,
         'levels_employee1': levels_employee1,
@@ -236,8 +350,18 @@ def bar_chart_data():
     # Return the data as JSON
     return jsonify(data)
 
+
 @app.route("/")
 def home():
+    """
+    This function is a route for the root URL ("/").
+    It returns the path to the file that contains the HTML template for the home page.
+
+    Returns:
+        str: The path to the file that contains the HTML template for the home page.
+    """
+    # Return the path to the file that contains the HTML template for the home page
+    return file_path
     return file_path
 
 if __name__ == "__main__":
