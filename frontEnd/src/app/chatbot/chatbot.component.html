@@ -1,0 +1,63 @@
+<div class="chat-bar-open" *ngIf="!chatOpenStatus">
+  <button id="chat-open-button" type="button" class="collapsible close" (click)="chatOpen()">
+    <i class="fa-regular fa-comment-dots"></i>
+  </button>
+</div>
+
+<div class="chat-bar-close" *ngIf="chatOpenStatus">
+  <button id="chat-close-button" type="button" class="collapsible close" (click)="chatClose()">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+</div>
+
+<!--div class="chat-window" *ngIf="chatOpenStatus && chatWindow1">
+  <div class="hi-there">
+    <p class="p1">Bonjour {{ currentUser.firstName }} 🤖👋,</p><br/>
+    <p class="p2">Je suis le "Smart Compensation Chatbot", spécialiste virtuel en ressources humaines.</p>
+    <p class="p2">Mon rôle est de fournir des conseils, des recommandations et des avertissements en matière de gestion de la rémunération, en m'appuyant sur la base de données interne.</p>
+    <p class="p2">Êtes-vous prêt à démarrer ?</p>
+  </div>
+  <div class="start-conversation">
+    <h1>Démarrer une conversation</h1><br />
+    <p>Avec un Smart Compensation Chatbot</p>
+    <div class="new-conversation">
+      <button type="button" (click)="openConversation()">
+        <span>Commencer maintenant</span>
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>&nbsp; !</span>
+      </button>
+    </div>
+  </div>
+</div-->
+
+<div class="chat-window2" *ngIf="chatOpenStatus && chatWindow1">
+  <div class="message-box" id="messageBox">
+    <div class="hi-there">
+      <p class="p1">Bonjour {{ currentUser.firstName }} 👋,</p><br/> <!-- 🤖 -->
+      <p class="p2">Comment puis-je vous aider aujourd'hui concernant la gestion des rémunérations ?</p>
+    </div>
+    <div *ngFor="let message of messages">
+      <div *ngIf="message.type === 'user'" class="first-chat">
+        <p>{{ message.text }}</p>
+      </div>
+
+      <div class="second-chat" *ngIf="message.type === 'admin'">
+        <p>{{ message.text }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="input-box">
+    <div class="surveysparrow">
+      <img src="../../assets/Logo-talan.png" />
+      <p>PFE 2024</p>
+    </div>
+    <div class="write-reply">
+      <input class="inputText" type="text" [(ngModel)]="userText" placeholder="Tapez votre message ici.." (keypress)="onKeyPress($event)" />
+    </div>
+    <div class="send-button">
+      <button type="submit" class="send-message" (click)="userResponse()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

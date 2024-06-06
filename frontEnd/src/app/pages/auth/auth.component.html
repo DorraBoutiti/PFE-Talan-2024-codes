@@ -1,0 +1,157 @@
+<div [class]="signUpMode">
+  <div class="forms-container">
+    <div class="signin-signup">
+      <form class="sign-in-form" [formGroup]="loginForm" (ngSubmit)="login()">
+        <h2 class="title">Se connecter</h2>
+        <mat-form-field>
+          <mat-label>Entrez votre matricule</mat-label>
+          <input matInput name="registrationNumber" type="text" formControlName="registrationNumber">
+        </mat-form-field>
+        <div
+          *ngIf="loginForm.controls['registrationNumber'].invalid && (loginForm.controls['registrationNumber'].dirty || loginForm.controls['registrationNumber'].touched)">
+          <div *ngFor="let error of login_form_messages.registrationNumber">
+            <mat-error *ngIf="loginForm.controls['registrationNumber'].hasError(error.type)" style="margin-bottom: 40px;">{{ error.message
+              }}</mat-error>
+          </div>
+        </div>
+
+        <mat-form-field>
+          <mat-label>Entrez votre mot de passe</mat-label>
+          <input matInput name="password" [type]="hide ? 'password' : 'text'" formControlName="password">
+
+            <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
+        </mat-form-field>
+        <div
+          *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+          <div *ngFor="let error of login_form_messages.password">
+            <mat-error *ngIf="loginForm.controls['password'].hasError(error.type)" style="margin-bottom: 20px;">{{ error.message
+              }}</mat-error>
+          </div>
+        </div>
+
+        <button class="button" mat-fab extended type="submit" style="background-color: #045078; color: #fff;">S'identifier</button>
+
+      </form>
+
+      <form class="sign-up-form" [formGroup]="registerForm" (ngSubmit)="register()" *ngIf="registerForm">
+        <h2 class="title">Demander l'accès à la plateforme</h2>
+        <mat-form-field class="autocomplete-form-field" style="width: 30em;">
+          <mat-label>Entrez un matricule</mat-label>
+          <input type="text" name="registrationNumber" formControlName="registrationNumber" placeholder="Matricule" aria-label="Matricule" matInput>
+        </mat-form-field>
+        <div *ngIf="registerForm.controls['registrationNumber'].invalid && (registerForm.controls['registrationNumber'].dirty || registerForm.controls['registrationNumber'].touched)">
+          <div *ngFor="let error of register_form_messages.registrationNumber">
+            <mat-error *ngIf="registerForm.controls['registrationNumber'].hasError(error.type)" style="margin-bottom: 2cap;">{{ error.message }}</mat-error>
+          </div>
+        </div>
+
+        <mat-form-field style="width: 30em;">
+          <mat-label>Entrez votre prénom</mat-label>
+          <input matInput type="text" formControlName="firstName" placeholder="Prénom">
+        </mat-form-field>
+        <div
+          *ngIf="registerForm.controls['firstName'].invalid && (registerForm.controls['firstName'].dirty || registerForm.controls['firstName'].touched)">
+          <div *ngFor="let error of register_form_messages.firstName">
+            <mat-error *ngIf="registerForm.controls['firstName'].hasError(error.type)" style="margin-bottom: 20px;">{{ error.message
+              }}</mat-error>
+          </div>
+        </div>
+
+        <mat-form-field style="width: 30em;">
+          <mat-label>Entrez votre nom</mat-label>
+          <input matInput type="text" placeholder="Nom" formControlName="lastName">
+        </mat-form-field>
+        <div
+          *ngIf="registerForm.controls['lastName'].invalid && (registerForm.controls['lastName'].dirty || registerForm.controls['lastName'].touched)">
+          <div *ngFor="let error of register_form_messages.lastName">
+            <mat-error *ngIf="registerForm.controls['lastName'].hasError(error.type)" style="margin-bottom: 20px;">{{ error.message
+              }}</mat-error>
+          </div>
+        </div>
+
+        <mat-form-field style="width: 30em;">
+          <mat-label>Entrez votre email</mat-label>
+          <input matInput type="email"  placeholder="Email" formControlName="email">
+        </mat-form-field>
+        <div
+          *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+          <div *ngFor="let error of register_form_messages.email">
+            <mat-error *ngIf="registerForm.controls['email'].hasError(error.type)" style="margin-bottom: 20px;">{{ error.message
+              }}</mat-error>
+          </div>
+        </div>
+
+        <mat-form-field class="autocomplete-form-field" style="width: 30em;">
+          <mat-label>Entrez votre rôle</mat-label>
+          <input type="text" name="role" formControlName="role" aria-label="role" matInput
+            [matAutocomplete]="autoRoles" placeholder="Rôle" (change)="onRoleInputChange($event)">
+          <mat-autocomplete #autoRoles="matAutocomplete" (optionSelected)="onRoleSelected($event.option.value)">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{role}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <div *ngIf="registerForm.controls['role'].invalid && (registerForm.controls['role'].dirty || registerForm.controls['role'].touched)">
+          <div *ngFor="let error of register_form_messages.role">
+            <mat-error *ngIf="registerForm.controls['role'].hasError(error.type)" style="margin-bottom: 20px;">{{ error.message }}</mat-error>
+          </div>
+        </div>
+
+        <mat-form-field style="width: 30em;">
+          <mat-label>Décrivez pourquoi vous souhaitez accéder à la plateforme</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+        <button mat-fab extended type="submit" class="button" style="background-color: #045078; color: #fff;">
+          <span style="display: flex; align-items: center;">
+            <span *ngIf="action === ''">
+                        Envoyer</span>
+            <span *ngIf="action === 'register'" style="margin-right: 10px;">Envoi en cours</span>
+            <mat-spinner *ngIf="action === 'register'" diameter="20"></mat-spinner>
+          </span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <div style="font-size: 55px; font-weight: 700; margin-bottom: 50px; line-height: 1.2;">
+          <span style="color: #045078; text-decoration: underline; ">Smart</span> Compensation Toolbox
+        </div>
+        <!--p>
+          Que vous soyez un expert ou novice en matière de rémunération, notre plateforme propose des outils et ressources pour vous aider à atteindre vos objectifs. <br>
+          Explorez nos fonctionnalités et participez à notre communauté dynamique de professionnels de la rémunération. <br>
+        </p-->
+        <h3>Vous êtes nouveaux ici ?</h3>
+        <p class="min">
+          Rejoignez-nous dès maintenant !
+        </p>
+        <button id="sign-up-btn" (click)="signUpMode = 'container sign-up-mode'" class="btn transparent" mat-fab extended type="submit" color="white" style="color: #045078;">Demander l'accès</button>
+        <div style="margin-bottom: 50px;"></div>
+      </div>
+    </div>
+    <div class="panel right-panel">
+      <div class="content">
+        <div style="font-size: 55px; font-weight: 700; margin-bottom: 50px; line-height: 1.2;">
+          <span style="color: #045078; text-decoration: underline; ">Smart</span> Compensation Toolbox
+        </div>
+        <h3>Vous avez déjà un compte ?</h3>
+        <p class="min">
+          Connectez-vous !
+        </p>
+        <button id="sign-in-btn" (click)="signUpMode = 'container'" class="btn transparent" mat-fab extended type="submit" color="white" style="color: #045078;">Se connecter</button>
+        <div style="margin-bottom: 140px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex;
+  align-items: center; position: absolute; z-index: 55; color: #000; bottom: 20px; left: 50%; transform: translateX(-50%); font-weight: 700;">
+    <span style="margin-right: 10px;">PFE - RH-2023-03</span>
+    <img src="../../../assets/talan-star-icon.png" alt="" style="width: 15px;">
+    <span style="margin-left: 10px;">TALAN TUNISIE CONSULTING</span>
+  </div>
+</div>

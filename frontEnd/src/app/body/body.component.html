@@ -1,0 +1,7 @@
+<ng-container *ngIf="currentUser">
+  <div class="body" [ngClass]="getBodyClass()">
+    <router-outlet></router-outlet>
+    <app-chatbot [currentUser]="currentUser"></app-chatbot>
+  </div>
+</ng-container>
+

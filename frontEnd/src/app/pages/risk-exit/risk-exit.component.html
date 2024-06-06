@@ -1,0 +1,152 @@
+<div class="header">
+  <h2 class="title">Risque de départ</h2>
+  <mat-chip *ngIf="filtredBy !== ''">Filtrer par: {{ determineRiskType(filtredBy) }} <i class="fa-solid fa-xmark" (click)="reset()"></i></mat-chip>
+</div>
+
+<p class="question-title">Qui envisage de partir ?</p>
+<div class="high-risk" *ngIf="highRiskLevel">
+  <h3>{{ highRiskLevel }}</h3>
+  <h4>employés signalés comme présentant un risque élevé de départ</h4>
+</div>
+<div class="stacked-bar-chart">
+  <div class="stacked-bar-chart-container" *ngIf="section1Width && section2Width && section3Width">
+    <div class="section section1" [style.width.%]="section1Width" [matTooltip]="section1SubTitle + '\n' + section1Text" matTooltipClass="custom-tooltip" (click)="updateDataSourceByRiskType('low')">
+      <span class="subtitle">{{ section1Title }}</span>
+      <span class="subsubtitle">{{ section1SubTitle }}</span>
+      <span class="section-text">{{ section1Text }}</span>
+    </div>
+    <div class="section section2" [style.width.%]="section2Width" [matTooltip]="section2SubTitle + '\n' + section2Text" matTooltipClass="custom-tooltip" (click)="updateDataSourceByRiskType('medium')">
+      <span class="subtitle">{{ section2Title }}</span>
+      <span class="subsubtitle">{{ section2SubTitle }}</span>
+      <span class="section-text">{{ section2Text }}</span>
+    </div>
+    <div class="section section3" [style.width.%]="section3Width" [matTooltip]="section3SubTitle + '\n' + section3Text" matTooltipClass="custom-tooltip" (click)="updateDataSourceByRiskType('high')">
+      <span class="subtitle">{{ section3Title }}</span>
+      <span class="subsubtitle">{{ section3SubTitle }}</span>
+      <span class="section-text">{{ section3Text }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="scale" *ngIf="section1Width && section2Width && section3Width">
+  <div class="scale-container">
+    <span>0</span>
+    <span>25</span>
+    <span>50</span>
+    <span>75</span>
+    <span>100</span>
+  </div>
+</div>
+
+<div class="table" *ngIf="employees && employees.length >= 0">
+  <div class="filters">
+    <h1 class="filter-text">Classer Par</h1>
+    <mat-form-field class="select-filter">
+      <mat-select [formControl]="selectPanel" (selectionChange)="onSelectionChange($event)">
+        <mat-option value="Employé">Employé</mat-option>
+        <mat-option value="Unité Organisationnelle">Unité Organisationnelle</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="search-filter">
+      <mat-label>Filtrer des résultats</mat-label>
+      <input matInput placeholder="Filtrez par mot clé" #input (keyup)="applyFilter(dataSource1, $event)" *ngIf="selectPanel.value === 'Employé'">
+      <input matInput placeholder="Filtrez par mot clé" #input (keyup)="applyFilter(dataSource2, $event)" *ngIf="selectPanel.value === 'Unité Organisationnelle'">
+    </mat-form-field>
+  </div>
+
+  <div class="table-by-employee" *ngIf="selectPanel.value === 'Employé'">
+    <div class="table-paginator">
+      <table mat-table [dataSource]="dataSource1" matSort (matSortChange)="sortData($event, 'dataSource1')">
+        <ng-container matColumnDef="registration-number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Matricule </th>
+          <td mat-cell *matCellDef="let element" class="firstColumn"> {{element.matricule}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="business-unit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Unité Organisationnelle</th>
+          <td mat-cell *matCellDef="let element"> {{element['code-unité organisationnelle']}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="performance">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Note de performance globale</th>
+          <td mat-cell *matCellDef="let element"> {{element['note globale']}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="risk">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Risque (%) </th>
+          <td mat-cell *matCellDef="let element"> {{toPercentage(element['Risque_de_depart'])}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="risk-group">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Groupe de risque </th>
+          <td mat-cell *matCellDef="let element">
+            <i class="fa-solid fa-circle" [ngStyle]="getRiskColor(element['Risque_de_depart'])"></i>
+            {{ determineRiskLevel(element['Risque_de_depart']) }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsByEmployee"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsByEmployee;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5" *ngIf="input1">Aucune donnée correspondant au filtre "{{input1.nativeElement.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [length]="dataSource1.data.length" [pageSizeOptions]="[5, 10, 20, 30, 50]" (page)="onPaginateChange(dataSource1, $event)"
+        aria-label="Select page of users" [pageIndex]="pgIndex" showFirstLastButtons #paginator1>
+      </mat-paginator>
+    </div>
+  </div>
+
+  <div class="table-by-uo" *ngIf="selectPanel.value === 'Unité Organisationnelle'">
+    <div class="table-paginator">
+      <table mat-table [dataSource]="dataSource2" matSort (matSortChange)="sortData($event, 'dataSource2')">
+        <ng-container matColumnDef="business-unit">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Unité Organisationnelle</th>
+          <td mat-cell *matCellDef="let element" class="firstColumn"> {{element['code_unité_organisationnelle']}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="employees">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre d'employés </th>
+          <td mat-cell *matCellDef="let element"> {{ element.nb_employes }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="risk-distribution">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Répartition des risques </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="sub-stacked-bar-chart">
+              <div class="sub-stacked-bar-chart-container">
+                <div class="section section1" [style.width.%]="element.risk_distribution_percent[0]" [matTooltip]="section1SubTitle + '\n' + element.risk_distribution_percent[0] + '% des employés'" matTooltipClass="custom-tooltip">
+                </div>
+                <div class="section section2" [style.width.%]="element.risk_distribution_percent[1]" [matTooltip]="section2SubTitle + '\n' + element.risk_distribution_percent[1] + '% des employés'" matTooltipClass="custom-tooltip">
+                </div>
+                <div class="section section3" [style.width.%]="element.risk_distribution_percent[2]" [matTooltip]="section3SubTitle + '\n' + element.risk_distribution_percent[2] + '% des employés'" matTooltipClass="custom-tooltip">
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="number-high-risk-employees">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre d'employés à haut risque </th>
+          <td mat-cell *matCellDef="let element"> {{ element.nb_high_risk_employees }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pourcentage-high-risk-employees">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Pourcentage d'employés à haut risque </th>
+          <td mat-cell *matCellDef="let element"> {{ element.percent_high_risk + '%' }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsByBusinessUnit"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsByBusinessUnit;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">Aucune donnée correspondant au filtre "{{input2.nativeElement.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [length]="dataSource2.data.length" [pageSizeOptions]="[5, 10, 20, 30, 50]" (page)="onPaginateChange(dataSource2, $event)"
+        aria-label="Select page of users" [pageIndex]="pgIndex" showFirstLastButtons #paginator2>
+      </mat-paginator>
+    </div>
+  </div>
+</div>

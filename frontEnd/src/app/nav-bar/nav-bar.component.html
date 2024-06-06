@@ -1,0 +1,91 @@
+<div class="head" [ngClass]="getHeaderClass()">
+  <div class="head-content">
+    <div class="head-content-left">
+      <div class="search-container">
+        <div class="normal-search">
+          <input type="search" class="search" name="" id="" placeholder="Que recherchez-vous?">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="head-content-right">
+      <div class="head-menu">
+        <div class="head-menu-item">
+          <div class="user-info">
+            <div style="font-weight: 700;">{{ formatName() }}</div>
+            <div style="font-weight: 400;">
+              {{ currentUser.role === 'HR_DIRECTOR' ? 'Directeur RH' : (currentUser.role === 'MANAGER' ? 'Manager' : 'Expert RH') }}
+            </div>
+          </div>
+        </div>
+        <div class="head-menu-item">
+          <div id="profileImage">{{ getInitials() }}</div>
+        </div>
+        <div class="head-menu-item">
+          <button class="head-menu-item-btn ripple" mat-icon-button [matMenuTriggerFor]="notifications" (click)="showUnreadNotifications()">
+            <i class="far fa-bell menu-icon" matBadge={{notificationCountData}}></i>
+          </button>
+          <mat-menu #notifications="matMenu">
+            <button class="notif-btn" (click)="showUnreadNotifications()" [style.background-color]="showUnread ? '#f1faee' : ''" [style.font-weight]="showUnread ? '650' : '450'" (click)="$event.stopPropagation()">Non lu</button>
+            <button class="notif-btn" (click)="showFirstSevenNotifications()" [style.background-color]="showFirstSeven ? '#f1faee' : ''" [style.font-weight]="showFirstSeven ? '650' : '450'" (click)="$event.stopPropagation()">Tout</button>
+            <ng-container *ngIf="showUnread">
+              <ng-container *ngFor="let notification of unreadNotificationsList; let last = last">
+                <button *ngIf="notification.notificationType == 'ACCESS'" mat-menu-item [style.padding-bottom.px]="last ? 0 : 5" (click)="toRequestAccess()">
+                  <mat-icon style="color: #457b9d;" class="custom-icon"><i class="fa-solid fa-child-reaching"></i></mat-icon>
+                  <span>{{ capitalizeFirstTwoWords(notification.content) }}</span>
+                </button>
+                <button *ngIf="notification.notificationType == 'CHURN'" mat-menu-item [style.padding-bottom.px]="last ? 0 : 5">
+                  <mat-icon style="color: #457b9d;" class="custom-icon"><i class="fa-solid fa-triangle-exclamation"></i></mat-icon>
+                  <span>{{ capitalizeFirstTwoWords(notification.content) }}</span>
+                </button>
+              </ng-container>
+              <p class="no-notifications" *ngIf="!unreadNotificationsList || unreadNotificationsList.length === 0">Aucune nouvelle notification</p>
+            </ng-container>
+            <ng-container *ngIf="showFirstSeven">
+              <ng-container *ngFor="let notification of notificationList; let last = last">
+                <button *ngIf="notification.notificationType == 'ACCESS'" mat-menu-item [style.padding-bottom.px]="last ? 0 : 5" (click)="toRequestAccess()">
+                  <mat-icon style="color: #457b9d;" class="custom-icon"><i class="fa-solid fa-envelope"></i></mat-icon>
+                  <span>{{ capitalizeFirstTwoWords(notification.content) }}</span>
+                </button>
+                <button *ngIf="notification.notificationType == 'CHURN'" mat-menu-item [style.padding-bottom.px]="last ? 0 : 5">
+                  <mat-icon style="color: #457b9d;" class="custom-icon"><i class="fa-solid fa-triangle-exclamation"></i></mat-icon>
+                  <span>{{ capitalizeFirstTwoWords(notification.content) }}</span>
+                </button>
+              </ng-container>
+              <p class="no-notifications" *ngIf="!notificationList || notificationList.length === 0">Aucune notification</p>
+            </ng-container>
+            <button *ngIf="showFirstSeven == true" class="notif-btnn" (click)="getAllNotifications()" [style.background-color]="'#f1faee'" [style.font-weight]="'650'" [class.disabled-btn]="showAllBtn" (click)="$event.stopPropagation()">Voir tout</button>
+          </mat-menu>
+        </div>
+        <div class="head-menu-item">
+          <button class="head-menu-item-btn ripple" mat-icon-button [matMenuTriggerFor]="menu">
+            <i class="fa-solid fa-ellipsis menu-icon"></i>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/update-profile">
+              <mat-icon class="custom-icon" style="color: #457b9d;"><i class="fa-solid fa-pen"></i></mat-icon>
+              <span>Modifier mon profil</span>
+            </button>
+            <button mat-menu-item routerLink="/update-email">
+              <mat-icon class="custom-icon" style="color: #457b9d;"><i class="fa-solid fa-at"></i></mat-icon>
+              <span>Modifier mon email</span>
+            </button>
+            <button mat-menu-item routerLink="/update-password">
+              <mat-icon class="custom-icon" style="color: #457b9d;"><i class="fa-solid fa-key"></i></mat-icon>
+              <span>Changer mon mot de passe</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon class="custom-icon" style="color: #e63946;"><i class="fa-solid fa-right-from-bracket"></i></mat-icon>
+              <span>Se déconnecter</span>
+            </button>
+          </mat-menu>
+        </div>
+        <div class="head-menu-item">
+          <button class="head-menu-item-btn ripple" mat-icon-button>
+            <i class="fa-solid fa-expand menu-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

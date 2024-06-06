@@ -1,0 +1,150 @@
+h2 {
+  font-family: 'Sentinel Pro';
+  color: #457b9d;
+  font-weight: 900;
+  padding-left: 1.5rem;
+
+  .second-title {
+    margin-top: 2.5rem;
+  }
+}
+
+.card {
+  padding: 10px;
+}
+
+span,
+p {
+  font-family: 'Sentinel Pro';
+}
+
+.btn {
+  color: #1d3557;
+}
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.list-item {
+  font-family: 'Sentinel Pro';
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2.5rem;
+  //margin-left: -2.25rem;
+
+  #profileImage {
+    width: 2.5em;
+    height: 2.5em;
+    clip-path: ellipse(50% 50%);
+    background: #457b9d;
+    font-size: medium;
+    color: #fff;
+    text-align: center;
+    line-height: 2em;
+    margin: 0 2em 0 0;
+    padding: 5px;
+    font-weight: 600;
+  }
+
+  .user-info {
+    line-height: 1.25;
+    font-size: 15px;
+    margin-right: 5em;
+  }
+
+  .delete-btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+}
+
+.form-field,
+mat-slider {
+  margin-top: 20px;
+  width: 400px;
+}
+
+mat-autocomplete {
+  min-width: 150em;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: #a8dadc;
+}
+
+::ng-deep .mat-step-icon-state-edit {
+  --mat-stepper-header-edit-state-icon-background-color: #457b9d;
+}
+
+::ng-deep .custom-snackbar {
+  --mdc-snackbar-container-color: #e63946;
+  color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mat-mdc-snack-bar-button-color: #fff;
+}
+
+::ng-deep .custom-snackbar button {
+  border: none;
+  --mdc-snackbar-container-color: #e63946;
+  color: #fff;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mat-snack-bar-button-color: #fff;
+}
+
+::ng-deep .custom-snackbar-success {
+  --mdc-snackbar-container-color: #1d3557;
+  color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mat-mdc-snack-bar-button-color: #fff;
+}
+
+::ng-deep .custom-snackbar-success button {
+  border: none;
+  --mdc-snackbar-container-color: #1d3557;
+  color: #fff;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mat-mdc-snack-bar-button-color: #fff;
+  --mat-snack-bar-button-color: #fff;
+}
+
+.mat-step-icon-content, .ng-star-inserted {
+  font-family: 'Sentinel Pro';
+}
+
+.head-content-left {
+  display: flex;
+  justify-content: end;
+  .search-container {
+    position: relative;
+    .normal-search {
+      .search {
+        font-family: 'Sentinel Pro';
+        //color: #457b9d;
+        font-weight: 450;
+        border: none;
+        height: 2.375rem;
+        width: 20rem;
+        padding-left: 2.5rem;
+        padding-right: 1.25rem;
+        background-color: #f1faee;
+        //box-shadow: none;
+        border-radius: 1.875rem;
+        outline: 0;
+      }
+      .search-icon {
+        position: absolute;
+        font-size: 1rem;
+        line-height: 2.375rem;
+        left: 0.813rem;
+        top: 0;
+        color: #707070;
+      }
+    }
+  }
+}

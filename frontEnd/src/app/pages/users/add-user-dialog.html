@@ -1,0 +1,112 @@
+<div *ngIf="!addUserForm" class="lds-ellipsis">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<ng-container *ngIf="addUserForm">
+  <span class="close-btn">
+    <button mat-icon-button mat-dialog-close><i class="fa-solid fa-xmark"></i></button>
+  </span>
+  <form class="add-user-form" [formGroup]="addUserForm" (ngSubmit)="addUser()">
+    <h2 class="title">Ajouter un utilisateur</h2>
+
+    <mat-form-field class="autocomplete-form-field">
+      <mat-label>Entrez un matricule</mat-label>
+      <input type="text" name="registrationNumber" formControlName="registrationNumber" placeholder="Matricule"
+        aria-label="Matricule" matInput [matAutocomplete]="autoRegistrationNumbers"
+        (change)="onRegistrationNumberInputChange($event)">
+      <mat-autocomplete #autoRegistrationNumbers="matAutocomplete"
+        (optionSelected)="onRegistrationNumberSelected($event.option.value)">
+        <mat-option *ngFor="let option of filteredRegistrationNumbers | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div
+      *ngIf="addUserForm.controls['registrationNumber'].invalid && (addUserForm.controls['registrationNumber'].dirty || addUserForm.controls['registrationNumber'].touched)">
+      <div *ngFor="let error of addUser_form_messages.registrationNumber">
+        <mat-error *ngIf="addUserForm.controls['registrationNumber'].hasError(error.type)">{{ error.message
+          }}</mat-error>
+      </div>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Entrez un prénom</mat-label>
+      <input matInput type="text" formControlName="firstName">
+    </mat-form-field>
+    <div
+      *ngIf="addUserForm.controls['firstName'].invalid && (addUserForm.controls['firstName'].dirty || addUserForm.controls['firstName'].touched)">
+      <div *ngFor="let error of addUser_form_messages.firstName">
+        <mat-error *ngIf="addUserForm.controls['firstName'].hasError(error.type)">{{ error.message }}</mat-error>
+      </div>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Entrez un nom</mat-label>
+      <input matInput type="text" formControlName="lastName">
+    </mat-form-field>
+    <div
+      *ngIf="addUserForm.controls['lastName'].invalid && (addUserForm.controls['lastName'].dirty || addUserForm.controls['lastName'].touched)">
+      <div *ngFor="let error of addUser_form_messages.lastName">
+        <mat-error *ngIf="addUserForm.controls['lastName'].hasError(error.type)">{{ error.message }}</mat-error>
+      </div>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Entrez un email</mat-label>
+      <input matInput type="text" formControlName="email">
+    </mat-form-field>
+    <div
+      *ngIf="addUserForm.controls['email'].invalid && (addUserForm.controls['email'].dirty || addUserForm.controls['email'].touched)">
+      <div *ngFor="let error of addUser_form_messages.email">
+        <mat-error *ngIf="addUserForm.controls['email'].hasError(error.type)">{{ error.message }}</mat-error>
+      </div>
+    </div>
+
+    <mat-form-field class="autocomplete-form-field">
+      <mat-label>Entrez un rôle</mat-label>
+      <input type="text" name="role" formControlName="role" placeholder="Rôle" aria-label="role" matInput
+        [matAutocomplete]="autoRoles" (change)="onRoleInputChange($event)">
+      <mat-autocomplete #autoRoles="matAutocomplete" (optionSelected)="onRoleSelected($event.option.value)">
+        <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
+          {{role}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div
+      *ngIf="addUserForm.controls['role'].invalid && (addUserForm.controls['role'].dirty || addUserForm.controls['role'].touched)">
+      <div *ngFor="let error of addUser_form_messages.role">
+        <mat-error *ngIf="addUserForm.controls['role'].hasError(error.type)">{{ error.message }}</mat-error>
+      </div>
+    </div>
+
+    <mat-form-field class="autocomplete-form-field">
+      <mat-label>Entrez une unité organisationnelle</mat-label>
+      <input type="text" name="businessUnit" formControlName="businessUnit" placeholder="Unité Organisationnelle"
+        aria-label="Unité Organisationnelle" matInput [matAutocomplete]="autoBusinessUnits"
+        (change)="onBusinessUnitInputChange($event)">
+      <mat-autocomplete #autoBusinessUnits="matAutocomplete"
+        (optionSelected)="onBusinessUnitSelected($event.option.value)">
+        <mat-option *ngFor="let option of filteredBusinessUnits | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div
+      *ngIf="addUserForm.controls['businessUnit'].invalid && (addUserForm.controls['businessUnit'].dirty || addUserForm.controls['businessUnit'].touched)">
+      <div *ngFor="let error of addUser_form_messages.businessUnit">
+        <mat-error *ngIf="addUserForm.controls['businessUnit'].hasError(error.type)">{{ error.message }}</mat-error>
+      </div>
+    </div>
+
+    <button mat-fab extended type="submit" class="btn">
+      <div class="submit-btn">
+        <span *ngIf="action == ''">Envoyer</span>
+        <span *ngIf="action == 'add'" class="in-progress">Envoi en cours</span>
+        <mat-spinner *ngIf="action == 'add'" diameter="20"></mat-spinner>
+      </div>
+    </button>
+  </form>
+</ng-container>

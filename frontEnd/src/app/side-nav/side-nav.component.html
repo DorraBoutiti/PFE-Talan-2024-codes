@@ -1,0 +1,38 @@
+<ng-container *ngIf="currentUser">
+  <div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+    <div class="logo-container">
+      <button class="logo" (click)="toggleCollapse()">
+        <span id="smart-logo"><i class="fa fa-bars"></i></span>
+      </button>
+      <!--div class="logo-text" *ngIf="collapsed">Smart Compensation Management</div-->
+      <button class="btn-close" *ngIf="collapsed" (click)="closeSidenav()">
+        <i class="fal fa-times close-icon"></i>
+      </button>
+    </div>
+    <ul class="sidenav-nav-inline" *ngIf="collapsed">
+      <ng-container *ngFor="let data of navData">
+        <!--ng-container *ngIf="rule$ | async as rule"-->
+          <li class="sidenav-nav-item" *ngIf="currentUser.role === 'HR_DIRECTOR' || (currentUser.role !== 'HR_DIRECTOR' && data.routeLink !== 'users' && data.routeLink !== 'list')">
+            <a class="sidenav-nav-link" [routerLink]="data.routeLink" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <i class="sidenav-link-icon" [class]="data.icon"></i>
+              <span class="sidenav-link-text">{{ data.label }}</span>
+            </a>
+          </li>
+        <!--/ng-container-->
+      </ng-container>
+    </ul>
+    <ul class="sidenav-nav-block" *ngIf="!collapsed">
+      <ng-container *ngFor="let data of navData">
+        <!--ng-container *ngIf="rule$ | async as rule"-->
+          <li class="sidenav-nav-item" *ngIf="currentUser.role === 'HR_DIRECTOR' || (currentUser.role !== 'HR_DIRECTOR' && data.routeLink !== 'users' && data.routeLink !== 'list')">
+            <a class="sidenav-nav-link" [routerLink]="data.routeLink" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <i class="sidenav-link-icon" [class]="data.icon"></i>
+              <span class="sidenav-link-small-text">{{ data.smallLabel }}</span>
+            </a>
+          </li>
+        <!--ng-container-->
+      </ng-container>
+    </ul>
+  </div>
+
+</ng-container>

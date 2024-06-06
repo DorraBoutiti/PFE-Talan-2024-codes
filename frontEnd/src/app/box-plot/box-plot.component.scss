@@ -1,0 +1,48 @@
+.boxplot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boxplot {
+  position: relative;
+  width: 400px;
+  height: 40px;
+  background-color: #dee2e6;
+  z-index: 1;
+}
+
+.min-max {
+  position: absolute;
+  width: 400px;
+  //width: 100%;
+  height: 100%;
+  background-color: #dee2e6;
+  z-index: 1;
+}
+
+.q1-q3 {
+  position: absolute;
+  height: 100%;
+  background-color: #a8dadc;
+  z-index: 2;
+}
+
+.median {
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background-color: #1d3557;
+  z-index: 3;
+}
+
+.position {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: #457b9d;
+  clip-path: ellipse(50% 50%);
+  z-index: 4;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}

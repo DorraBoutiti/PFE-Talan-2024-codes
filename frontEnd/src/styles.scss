@@ -1,0 +1,245 @@
+@use '@angular/material' as mat;
+
+$my-custom-level: mat.define-typography-level(
+  $font-family: 'Sentinel Pro',
+  $font-weight: 400,
+  $font-size: 1rem,
+  $line-height: 1,
+  $letter-spacing: normal,
+);
+
+// Fonts
+
+@font-face {
+  font-family: Abrasha;
+  src: url("./assets/Abrasha-Round.otf") format("opentype");
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-BoldItalic.woff') format('woff');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-BookItalic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-SemiboldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-Book.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sentinel Pro';
+  src: url('./assets/fonts/SentinelPro-MediumItalic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./assets/fonts/Gotham-Black.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    font-family: 'Sentinel Pro';; //'Roboto', sans-serif;
+    background: #f1faee;
+    //height: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border-radius: .5rem;
+    background-color: #fff;
+    margin: 1.25rem 0 1.25rem 0;
+    box-shadow: 0 .25rem .5rem #e6edef;
+    color: #495057;
+
+    .card-head {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #edf1f7;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .card-body {
+        padding: 1rem 1.5rem;
+    }
+}
+
+* {
+  --mdc-slider-label-label-text-font: 'Sentinel Pro';
+  --mdc-slider-handle-color: #457b9d;
+  --mdc-slider-focus-handle-color: #457b9d;
+  --mdc-slider-hover-handle-color: #457b9d;
+  --mdc-slider-active-track-color: #457b9d;
+  --mdc-slider-inactive-track-color: #457b9d;
+  --mdc-slider-with-tick-marks-inactive-container-color: #457b9d;
+  --mdc-slider-with-tick-marks-active-container-color: white;
+  --mdc-slider-disabled-active-track-color: #000;
+  --mdc-slider-disabled-handle-color: #000;
+  --mdc-slider-disabled-inactive-track-color: #000;
+  --mdc-slider-label-container-color: #000;
+  --mdc-slider-label-label-text-color: #fff;
+  --mdc-slider-with-overlap-handle-outline-color: #fff;
+  --mdc-slider-with-tick-marks-disabled-container-color: #000;
+  --mdc-slider-handle-elevation: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  --mat-slider-ripple-color: #457b9d;
+  --mat-slider-hover-state-layer-color: rgba(63, 81, 181, 0.05);
+  --mat-slider-focus-state-layer-color: rgba(63, 81, 181, 0.2);
+  --mat-slider-value-indicator-opacity: 0.6;
+
+  --mat-option-selected-state-label-text-color: #1d3557;
+  --mat-select-focused-arrow-color: #1d3557;
+  --mat-select-enabled-trigger-text-color: #1d3557;
+  --mat-minimal-pseudo-checkbox-selected-checkmark-color: #1d3557;
+  --mat-option-selected-state-label-text-color: #1d3557;
+  --mat-select-enabled-arrow-color: #ccc;
+  --mat-full-pseudo-checkbox-selected-icon-color: #457b9d;
+
+  --mdc-filled-text-field-label-text-font: 'Sentinel Pro';
+  --mdc-outlined-text-field-label-text-font: 'Sentinel Pro';
+  --mat-form-field-container-text-font: 'Sentinel Pro';
+  --mat-form-field-subscript-text-font: 'Sentinel Pro';
+
+  --mdc-filled-text-field-caret-color: #457b9d;
+  --mdc-filled-text-field-focus-active-indicator-color: #457b9d;
+  --mdc-filled-text-field-focus-label-text-color: #457b9d;
+  --mdc-filled-text-field-container-color: whitesmoke;
+  //--mdc-filled-text-field-disabled-container-color: #fafafa;
+  --mdc-filled-text-field-label-text-color: #1d3557;
+  --mdc-filled-text-field-hover-label-text-color: #1d3557;
+  //--mdc-filled-text-field-disabled-label-text-color: rgba(0, 0, 0, 0.38);
+  --mdc-filled-text-field-input-text-color: #1d3557;
+  //--mdc-filled-text-field-disabled-input-text-color: rgba(0, 0, 0, 0.38);
+  --mdc-filled-text-field-input-text-placeholder-color: #1d3557;
+  --mdc-filled-text-field-error-hover-label-text-color: #e63946;
+  --mdc-filled-text-field-error-focus-label-text-color: #e63946;
+  --mdc-filled-text-field-error-label-text-color: #e63946;
+  --mdc-filled-text-field-error-caret-color: #e63946;
+  --mdc-filled-text-field-active-indicator-color: #1d3557;
+  //--mdc-filled-text-field-disabled-active-indicator-color: rgba(0, 0, 0, 0.06);
+  --mdc-filled-text-field-hover-active-indicator-color: #1d3557;
+  --mdc-filled-text-field-error-active-indicator-color: #e63946;
+  --mdc-filled-text-field-error-focus-active-indicator-color: #e63946;
+  --mdc-filled-text-field-error-hover-active-indicator-color: #e63946;
+  --mdc-outlined-text-field-caret-color: #457b9d;
+  --mdc-outlined-text-field-focus-outline-color: #457b9d;
+  --mdc-outlined-text-field-focus-label-text-color: #457b9d;
+  --mdc-outlined-text-field-label-text-color: #1d3557;
+  --mdc-outlined-text-field-hover-label-text-color: #1d3557;
+  //--mdc-outlined-text-field-disabled-label-text-color: rgba(0, 0, 0, 0.38);
+  --mdc-outlined-text-field-input-text-color: #1d3557;
+  //--mdc-outlined-text-field-disabled-input-text-color: rgba(0, 0, 0, 0.38);
+  --mdc-outlined-text-field-input-text-placeholder-color: #1d3557;
+  --mdc-outlined-text-field-error-caret-color: #e63946;
+  --mdc-outlined-text-field-error-focus-label-text-color: #e63946;
+  --mdc-outlined-text-field-error-label-text-color: #e63946;
+  --mdc-outlined-text-field-error-hover-label-text-color: #e63946;
+  --mdc-outlined-text-field-outline-color: #1d3557;
+  //--mdc-outlined-text-field-disabled-outline-color: rgba(0, 0, 0, 0.06);
+  --mdc-outlined-text-field-hover-outline-color: #1d3557;
+  --mdc-outlined-text-field-error-focus-outline-color: #e63946;
+  --mdc-outlined-text-field-error-hover-outline-color: #e63946;
+  --mdc-outlined-text-field-error-outline-color: #e63946;
+  --mat-form-field-focus-select-arrow-color: #457b9d;
+  //--mat-form-field-disabled-input-text-placeholder-color: rgba(0, 0, 0, 0.38);
+  --mat-form-field-state-layer-color: #1d3557;
+  --mat-form-field-error-text-color: #e63946;
+
+  --mat-form-field-enabled-select-arrow-color: #1d3557;
+  //--mat-form-field-disabled-select-arrow-color: #1d3557;
+
+  --mat-table-row-item-label-text-font: 'Sentinel Pro';
+  --mat-table-header-headline-font: 'Sentinel Pro';
+  --mat-option-label-text-font: 'Sentinel Pro';
+  font-family: 'Sentinel Pro';
+}
+

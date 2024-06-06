@@ -1,0 +1,200 @@
+<ng-container *ngIf="currentUser">
+  <h2 class="title">Revue de salaires</h2>
+  <div class="employees-list">
+
+    <ng-container *ngIf="employees == undefined || employees == null">
+      <p>Chargement des données..</p>
+    </ng-container>
+
+    <ng-container *ngIf="employees != undefined && employees != null">
+      <mat-form-field>
+        <mat-label>Filtrer des résultats</mat-label>
+        <input matInput placeholder="Filtrez par mot clé" #input (keyup)="applyFilter($event)">
+      </mat-form-field>
+
+      <div class="table-paginator">
+        <table mat-table [dataSource]="dataSource" class="employees-table">
+
+          <tr mat-header-row *matHeaderRowDef="['employe', 'employee_info', 'salaire']; sticky: true"></tr>
+
+          <!-- Colonne Employé -->
+          <ng-container matColumnDef="employe">
+            <th mat-header-cell *matHeaderCellDef class="align-top" [attr.colspan]="2"> Employé </th>
+            <!--td mat-cell *matCellDef="let element" [attr.colspan]="2"> {{element.nom}}, {{element.prenom}} </td-->
+          </ng-container>
+
+          <!-- Colonne Employee Info -->
+          <ng-container matColumnDef="employee_info">
+            <th mat-header-cell *matHeaderCellDef class="align-top" [attr.colspan]="3"> Informations sur l'employé </th>
+            <!--td mat-cell *matCellDef="let element" [attr.colspan]="3"> Genre: {{element.genre}}, Expérience: {{element.experience}}, Poste: {{element.poste}} </td-->
+          </ng-container>
+
+          <!-- Colonne Salaire -->
+          <ng-container matColumnDef="salaire">
+            <th mat-header-cell *matHeaderCellDef class="align-top" [attr.colspan]="3"> Salaire </th>
+            <!--td mat-cell *matCellDef="let element" [attr.colspan]="3"> Salaire de base: {{element.salaire_base}}, Salaire estimé: {{element.salaire_estime}}, Augmentation estimée: {{element.augmentation_estimee}} </td-->
+          </ng-container>
+
+          <!-- En-têtes des sous-colonnes -->
+          <tr matSort (matSortChange)="sortData($event)" mat-header-row
+            *matHeaderRowDef="['registrationNumber', 'Genre', 'poste', 'note globale', 'expérience en année', 'Montant du salaire', 'recommanded increase (amount)', 'recommanded increase (%)', 'new base salary', 'benchmarking']">
+          </tr>
+
+          <!-- Sous-colonnes de la colonne Employé -->
+          <ng-container matColumnDef="registrationNumber">
+            <th mat-header-cell *matHeaderCellDef class="align-top"> Matricule </th>
+            <td mat-cell *matCellDef="let element" style="display: flex; align-items: center; padding: 15px;">
+              <img src="../../../assets/avatar.png" alt="avatar" style="margin-right: 10px;">
+              <div>
+                <div style="font-weight: 500;">{{element.matricule}}</div>
+                <div>{{element.poste}}</div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Genre">
+            <th mat-header-cell *matHeaderCellDef class="align-top"> Alertes </th>
+            <td mat-cell *matCellDef="let element"> <i style="color: #fca311;"
+                class="fa-solid fa-triangle-exclamation"></i> <i style="color: #e63946;"
+                class="fa-solid fa-circle-exclamation"></i></td>
+          </ng-container>
+
+          <!-- Sous-colonnes de la colonne Employee Info -->
+          <ng-container matColumnDef="poste">
+            <th mat-header-cell *matHeaderCellDef class="align-top"> Commentaires </th>
+            <td mat-cell *matCellDef="let element">
+              <div style="display: flex; align-items: center; justify-content: center; color: #a8dadc">
+                <span style="font-size: 14px; font-weight: 500;">
+                  {{ (getCommentsCountByEmployee(element.matricule) | async) ?? 0 }}
+                </span>
+                <button class="head-menu-item-btn ripple" mat-icon-button [matMenuTriggerFor]="commentsMenu"
+                  (click)="getComments(element.matricule)">
+                  <i
+                    [ngClass]="(getCommentsCountByEmployee(element.matricule) | async) ?? 0 > 0 ? 'fa-solid fa-message' : 'fa-regular fa-message'"></i>
+                </button>
+              </div>
+              <mat-menu #commentsMenu="matMenu">
+                <ng-container>
+                  <form class="example-form" (click)="$event.stopPropagation()"
+                    *ngIf="currentUser.role === 'HR_EXPERT'">
+                    <mat-form-field class="example-full-width">
+                      <!--mat-label>Message</mat-label-->
+                      <input matInput #message maxlength="256" placeholder="Écrire un feedback.."
+                        (keydown.enter)="addComment(message.value, element.matricule)">
+                      <!--mat-hint align="start"><strong></strong></mat-hint-->
+                      <!--mat-hint align="end">{{message.value.length}} / 256</mat-hint-->
+                    </mat-form-field>
+                  </form>
+                  <ng-container *ngFor="let comment of comments">
+                    <mat-card (click)="$event.stopPropagation()">
+                      <mat-card-header>
+                        <mat-card-title>
+                          <span class="left-title">{{ comment.userFrom.firstName + ' ' + comment.userFrom.lastName
+                            }}</span> &nbsp;&nbsp;&nbsp;
+                          <span class="right-title">{{ formatTimeDifference(comment.date) }}</span>
+                        </mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content>{{ comment.comment }}</mat-card-content>
+                    </mat-card>
+                  </ng-container>
+
+
+                  <p *ngIf="comments.length == 0" class="no-comments" (click)="$event.stopPropagation()">Aucun
+                    commentaire pour ce employé</p>
+                </ng-container>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="note globale">
+            <th mat-header-cell *matHeaderCellDef> Note globale </th>
+            <td mat-cell *matCellDef="let element"> {{ element['note globale'] == -99 ? 'Non évalué' : element['note globale'] }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expérience en année">
+            <th mat-header-cell *matHeaderCellDef> Expérience </th>
+            <td mat-cell *matCellDef="let element">
+              {{ element['expérience en année'] === 0 ? 'Moins d\'un an d\'expérience' : (element['expérience en année']
+              === 1 ? 'Une année' : element['expérience en année'] + ' ans') }}
+            </td>
+          </ng-container>
+
+          <!-- Sous-colonnes de la colonne Salaire -->
+          <ng-container matColumnDef="Montant du salaire">
+            <th mat-header-cell *matHeaderCellDef> Salaire de base </th>
+            <td mat-cell *matCellDef="let element"> {{formatNumber(element['Montant du salaire']) + ' DM'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="recommanded increase (amount)">
+            <th mat-header-cell *matHeaderCellDef class="salary-section"> Augmentation
+              recommandée (montant)</th>
+            <td mat-cell *matCellDef="let element" class="salary-section">
+              {{formatNumber(element['recommanded increase (amount)']) + ' DM'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="recommanded increase (%)">
+            <th mat-header-cell *matHeaderCellDef class="salary-section"> Augmentation
+              recommandée (%)</th>
+            <td mat-cell *matCellDef="let element" class="salary-section"> {{formatNumber(element['recommanded increase (%)']) + "%"}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="new base salary">
+            <th mat-header-cell *matHeaderCellDef class="salary-section"> Nouveau salaire
+              de base</th>
+            <td mat-cell *matCellDef="let element" class="salary-section"> {{formatNumber(element['new base salary']) +
+              ' DM'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="benchmarking">
+            <th mat-header-cell *matHeaderCellDef>Benchmarking % au marché</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-stroked-button *ngIf="!benchmarking && loadingElement !== element.matricule"
+                (click)="analyzeBenchmarking(element.matricule)">
+                <div class="analyze-btn">
+                  <span *ngIf="action === '' || action === 'analyze'" class="analyze-btn-text">Analyser la situation</span>
+                  <span *ngIf="action === 'analyze' && loadingElement === element.matricule" class="analyze-btn-text-in-progress">Analyse en cours</span>
+                  <mat-spinner *ngIf="action === 'analyze' && loadingElement === element.matricule" diameter="20"></mat-spinner>
+                </div>
+              </button>
+              <span *ngIf="benchmarking && loadingElement === element.matricule" class="analyze-btn-text">{{ benchmarking }}</span>
+              <button mat-stroked-button *ngIf="benchmarking && loadingElement !== element.matricule"
+                (click)="analyzeBenchmarking(element.matricule)">
+                <div class="analyze-btn">
+                  <span *ngIf="action === 'analyze' && loadingElement === element.matricule" class="analyze-btn-text-in-progress">Analyse en cours</span>
+                  <mat-spinner *ngIf="action === 'analyze' && loadingElement === element.matricule" diameter="20"></mat-spinner>
+                  <span *ngIf="action === '' || action === 'analyze'" class="analyze-btn-text">Analyser la situation</span>
+                </div>
+              </button>
+              <button mat-stroked-button *ngIf="!benchmarking && loadingElement === element.matricule"
+                (click)="analyzeBenchmarking(element.matricule)">
+                <div class="analyze-btn">
+                  <span *ngIf="action === 'analyze' && loadingElement === element.matricule" class="analyze-btn-text-in-progress">Analyse en cours</span>
+                  <mat-spinner *ngIf="action === 'analyze' && loadingElement === element.matricule" diameter="20"></mat-spinner>
+                </div>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="10">Aucune donnée correspondant au filtre "{{input.value}}"</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20, 30, 50]" (page)="onPaginateChange($event)"
+          aria-label="Select page of users" [pageIndex]="pgIndex">
+        </mat-paginator>
+
+        <button mat-flat-button style="background-color: #457b9d; color: #fff; margin-top: 20px;"
+          (click)="get_employees_need_augmentation()">Liste des employés nécessitant une augmentation salariale
+        </button>
+
+        <button mat-flat-button style="background-color: #a8dadc; color: #fff; margin-top: 20px; margin-left: 20px;"
+          (click)="openRiskPage()" routerLinkActive="router-link-active">Liste des employés présentant un risque de
+          départ
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

@@ -1,0 +1,8 @@
+<div class="boxplot-container">
+  <div class="boxplot">
+    <div class="min-max" [style.width.px]="fixedWidth"></div>
+    <div class="q1-q3" [style.left.px]="q1q3Left" [style.width.px]="q1q3Width"></div>
+    <div class="median" [style.left.px]="medianLeft"></div>
+    <div class="position" [@circleAnimation]="{ value: '', params: { positionLeft: positionLeft }}" [style.left.px]="positionLeft"></div>
+  </div>
+</div>

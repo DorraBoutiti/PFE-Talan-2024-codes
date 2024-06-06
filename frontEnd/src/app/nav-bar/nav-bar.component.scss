@@ -1,0 +1,198 @@
+.head {
+  font-family: 'Sentinel Pro';
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
+  z-index: 1;
+  transition: all .5s ease;
+  background: #f1faee;
+  padding: 1rem 1.5rem 0 1.5rem;
+  position: fixed;
+  top: 0;
+  //box-shadow: none;
+
+  .mat-badge-content {
+    background-color: #e63946;
+  }
+
+  .head-content {
+    background-color: #fff;
+    border-radius: 0.625rem;
+    padding: 0.813rem 1.563rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .head-content-left {
+      .search-container {
+        position: relative;
+        .normal-search {
+          .search {
+            font-family: 'Sentinel Pro';
+            //color: #457b9d;
+            font-weight: 450;
+            border: none;
+            height: 2.375rem;
+            padding-left: 2.5rem;
+            padding-right: 2.25rem;
+            background-color: #f1faee;
+            //box-shadow: none;
+            border-radius: 1.875rem;
+            outline: 0;
+          }
+          .search-icon {
+            position: absolute;
+            font-size: 1rem;
+            line-height: 2.375rem;
+            left: 0.813rem;
+            top: 0;
+            color: #707070;
+          }
+        }
+      }
+    }
+
+    .head-content-right {
+      display: flex;
+      align-items: center;
+      .head-menu {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 1.25rem;
+
+        .head-menu-item {
+          .head-menu-item-btn {
+            font-size: 18px;
+            height: 42px;
+            width: 42px;
+            cursor: pointer;
+            border-radius: 50%;
+            margin-left: 5px;
+            outline: 0;
+            color: #457b9d;
+          }
+
+
+          /*.new-notifications {
+            background-color: #707070;
+          }*/
+
+          .head-menu-item-btn:hover, .head-menu-item-btn:focus {
+            background-color: #eff2f3;
+            menu-icon {
+              color: #457b9d;
+            }
+          }
+        }
+      }
+
+      .user-info {
+        line-height: 1.25;
+        font-size: 15px;
+      }
+
+      #profileImage {
+        width: 2.5em;
+        height: 2.5em;
+        clip-path: ellipse(50% 50%);
+        background: #457b9d;
+        font-size: medium;
+        color: #fff;
+        text-align: center;
+        line-height: 2em;
+        margin: 0 2em;
+        padding: 5px;
+        font-weight: 600;
+        //font-style: normal;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.head-trimmed {
+  width: calc(100% - 16.5625rem);
+  margin-left: 16.5625rem;
+}
+
+.head-md-screen {
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
+}
+
+/*.circle-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  top: -2px;
+  right: -3px;
+  background-color: #699dfa;
+
+  &.pulse {
+    animation: pulse-a,imation 1.2s infinite;
+  }
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0 rgba(26, 104, 206, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 104, 206, 0.6);
+  }
+}*/
+
+.notif-btn {
+  font-family: 'Sentinel Pro';
+  color: #457b9d;
+  font-weight: 450;
+  border: none;
+  height: 2.375rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  border-radius: 1.875rem;
+  outline: 0;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+.notif-btnn {
+  font-family: 'Sentinel Pro';
+  color: #457b9d;
+  font-weight: 450;
+  border: none;
+  height: 2.375rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  border-radius: 1.875rem;
+  //outline: 0;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.custom-icon {
+  font-size: 17px;
+}
+
+.disabled-btn {
+  cursor: not-allowed;
+  opacity: 0.6; /* ou toute autre valeur pour réduire l'opacité */
+  pointer-events: none;
+}
+
+.no-notifications {
+  font-family: 'Sentinel Pro';
+  padding: 15px;
+  width: 280px;
+  font-size: 15px;
+}
+
+span {
+  font-family: 'Sentinel Pro';
+  font-size: 15px;
+}

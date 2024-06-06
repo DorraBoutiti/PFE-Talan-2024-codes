@@ -1,0 +1,44 @@
+<ng-container *ngIf="currentUser">
+  <h2 class="title">Modifier le profil</h2>
+  <div class="update-profile-form" *ngIf="updateProfileForm">
+    <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()">
+      <mat-form-field>
+        <mat-label>Entrez votre nom</mat-label>
+        <input matInput name="lastName" type="text" formControlName="lastName">
+      </mat-form-field>
+      <div
+        *ngIf="updateProfileForm.controls['lastName'].invalid && (updateProfileForm.controls['lastName'].dirty || updateProfileForm.controls['lastName'].touched)">
+        <div *ngFor="let error of update_profile_form_messages.lastName">
+          <mat-error *ngIf="updateProfileForm.controls['lastName'].hasError(error.type)">{{ error.message }}</mat-error>
+        </div>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Entrez votre prénom</mat-label>
+        <input matInput name='firstName' type="text" formControlName="firstName">
+      </mat-form-field>
+      <div
+        *ngIf="updateProfileForm.controls['firstName'].invalid && (updateProfileForm.controls['firstName'].dirty || updateProfileForm.controls['firstName'].touched)">
+        <div *ngFor="let error of update_profile_form_messages.firstName">
+          <mat-error *ngIf="updateProfileForm.controls['firstName'].hasError(error.type)">{{ error.message}}</mat-error>
+        </div>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Entrez votre mot de passe</mat-label>
+        <input matInput name='password' [type]="hide ? 'password' : 'text'" formControlName="password">
+        <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">{{hide
+          ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+      <div
+        *ngIf="updateProfileForm.controls['password'].invalid && (updateProfileForm.controls['password'].dirty || updateProfileForm.controls['password'].touched)">
+        <div *ngFor="let error of update_profile_form_messages.password">
+          <mat-error *ngIf="updateProfileForm.controls['password'].hasError(error.type)">{{ error.message }}</mat-error>
+        </div>
+      </div>
+
+      <button mat-flat-button type="submit">Mettre à jour</button>
+    </form>
+  </div>
+
+</ng-container>

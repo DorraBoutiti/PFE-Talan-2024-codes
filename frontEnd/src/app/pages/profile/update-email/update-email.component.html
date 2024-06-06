@@ -1,0 +1,32 @@
+<ng-container *ngIf="currentUser">
+  <h2 class="title">Modifier l'email</h2>
+  <div class="update-email-form" *ngIf="updateEmailForm">
+    <form [formGroup]="updateEmailForm" (ngSubmit)="updateEmail()">
+      <mat-form-field>
+        <mat-label>Entrez votre adresse email</mat-label>
+        <input matInput name="email" type="text" formControlName="email">
+      </mat-form-field>
+      <div
+        *ngIf="updateEmailForm.controls['email'].invalid && (updateEmailForm.controls['email'].dirty || updateEmailForm.controls['email'].touched)">
+        <div *ngFor="let error of update_email_form_messages.email">
+          <mat-error *ngIf="updateEmailForm.controls['email'].hasError(error.type)">{{ error.message }}</mat-error>
+        </div>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Entrez votre mot de passe</mat-label>
+        <input matInput name='password' [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+        <mat-icon matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">{{hidePassword
+          ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+      <div
+        *ngIf="updateEmailForm.controls['password'].invalid && (updateEmailForm.controls['password'].dirty || updateEmailForm.controls['password'].touched)">
+        <div *ngFor="let error of update_email_form_messages.password">
+          <mat-error *ngIf="updateEmailForm.controls['password'].hasError(error.type)">{{ error.message }}</mat-error>
+        </div>
+      </div>
+
+      <button mat-flat-button type="submit">Mettre à jour</button>
+    </form>
+  </div>
+</ng-container>

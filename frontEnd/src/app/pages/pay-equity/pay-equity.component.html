@@ -1,0 +1,252 @@
+<ng-container *ngIf="currentUser">
+  <ng-container *ngIf="options.length > 0">
+    <h2 class="title">Parité salariale</h2>
+
+    <form class="autocomplete-form">
+      <div class="autocomplete-form-container">
+        <mat-form-field class="autocomplete-form-field">
+          <mat-label>Choisissez un Employé</mat-label>
+          <input type="text" placeholder="Matricule" aria-label="Matricule" matInput [formControl]="myControl"
+            [matAutocomplete]="auto" (change)="onInputChange($event)">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+            (optionSelected)="onOptionSelected($event.option.value)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <ng-container *ngIf="selectedRegisterNumber != ''">
+          <div>
+            <span class="horizontal-spacer"><b>Employé n° :</b> {{ selectedRegisterNumber }}</span>
+            <span><b>Poste :</b> {{ poste }}</span>
+          </div>
+
+          <div>
+            <span class="horizontal-spacer"><b>Unité organisationnelle :</b> {{ businessUnit }}</span>
+            <span><b>Classification :</b> {{ classification }}</span>
+          </div>
+
+          <div class="form-spacer"></div>
+        </ng-container>
+      </div>
+    </form>
+
+    <div class="container">
+      <div class="sub-container">
+        <div class="card">
+          <div class="mat-card-content">
+
+            <div class="section-container">
+              <h2 class="subtitle">Employés Occupant le Même Poste</h2>
+              <h2 class="subsubtitle">{{countByPost}} membres</h2>
+            </div>
+            <div class="line"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Position dans la Fourchette Salariale</h2>
+              <app-box-plot [min]="minSalaryByPost" [q1]="firstQuartileSalaryByPost" [median]="medianSalaryByPost"
+                [q3]="thirdQuartileSalaryByPost" [max]="maxSalaryByPost" [employeeValue]="salary">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Évaluation des Performances</h2>
+
+              <app-box-plot *ngIf="!performance" [min]="minPerformanceByPost" [q1]="firstQuartilePerformanceByPost"
+                [median]="medianPerformanceByPost" [q3]="thirdQuartilePerformanceByPost" [max]="maxPerformanceByPost"
+                [employeeValue]="0">
+              </app-box-plot>
+
+              <app-box-plot
+                *ngIf="performance && performance <= maxPerformanceByPost && performance >= minPerformanceByPost"
+                [min]="minPerformanceByPost" [q1]="firstQuartilePerformanceByPost" [median]="medianPerformanceByPost"
+                [q3]="thirdQuartilePerformanceByPost" [max]="maxPerformanceByPost" [employeeValue]="performance">
+              </app-box-plot>
+
+              <p *ngIf="performance > maxPerformanceByPost || performance < minPerformanceByPost">Non évalué</p>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Expérience</h2>
+              <app-box-plot [min]="minExperienceByPost" [q1]="firstQuartileExperienceByPost"
+                [median]="medianExperienceByPost" [q3]="thirdQuartileExperienceByPost" [max]="maxExperienceByPost"
+                [employeeValue]="experience">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Productivité</h2>
+              <app-box-plot [min]="minAttendanceByPost" [q1]="firstQuartileAttendanceByPost"
+                [median]="medianAttendanceByPost" [q3]="thirdQuartileAttendanceByPost" [max]="maxAttendanceByPost"
+                [employeeValue]="attendance">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Taux d'Absentièsme</h2>
+              <app-box-plot [min]="minAbsenteeismByPost" [q1]="firstQuartileAbsenteeismByPost"
+                [median]="medianAbsenteeismByPost" [q3]="thirdQuartileAbsenteeismByPost" [max]="maxAbsenteeismByPost"
+                [employeeValue]="absenteeism">
+              </app-box-plot>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+        </div>
+
+        <div class="card">
+          <div class="mat-card-content">
+
+            <div class="section-container">
+              <h2 class="subtitle">Collaborateurs de la Même Unité Organisationnelle</h2>
+              <h2 class="subsubtitle">{{countByBusinessUnit}} membres</h2>
+            </div>
+            <div class="line"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Position dans la Fourchette Salariale</h2>
+              <app-box-plot [min]="minSalaryByBusinessUnit" [q1]="firstQuartileSalaryByBusinessUnit"
+                [median]="medianSalaryByBusinessUnit" [q3]="thirdQuartileSalaryByBusinessUnit"
+                [max]="maxSalaryByBusinessUnit" [employeeValue]="salary">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Évaluation des Performances</h2>
+              <app-box-plot *ngIf="!performance" [min]="minPerformanceByBusinessUnit"
+                [q1]="firstQuartilePerformanceByBusinessUnit" [median]="medianPerformanceByBusinessUnit"
+                [q3]="thirdQuartilePerformanceByBusinessUnit" [max]="maxPerformanceByBusinessUnit" [employeeValue]="0">
+              </app-box-plot>
+
+              <app-box-plot
+                *ngIf="performance && performance <= maxPerformanceByBusinessUnit && performance >= minPerformanceByBusinessUnit"
+                [min]="minPerformanceByBusinessUnit" [q1]="firstQuartilePerformanceByBusinessUnit"
+                [median]="medianPerformanceByBusinessUnit" [q3]="thirdQuartilePerformanceByBusinessUnit"
+                [max]="maxPerformanceByBusinessUnit" [employeeValue]="performance">
+              </app-box-plot>
+
+              <p *ngIf="performance > maxPerformanceByBusinessUnit || performance < minPerformanceByBusinessUnit">Non
+                évalué</p>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Expérience</h2>
+              <app-box-plot [min]="minExperienceByBusinessUnit" [q1]="firstQuartileExperienceByBusinessUnit"
+                [median]="medianExperienceByBusinessUnit" [q3]="thirdQuartileExperienceByBusinessUnit"
+                [max]="maxExperienceByBusinessUnit" [employeeValue]="experience">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Productivité</h2>
+              <app-box-plot [min]="minAttendanceByBusinessUnit" [q1]="firstQuartileAttendanceByBusinessUnit"
+                [median]="medianAttendanceByBusinessUnit" [q3]="thirdQuartileAttendanceByBusinessUnit"
+                [max]="maxAttendanceByBusinessUnit" [employeeValue]="attendance">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Taux d'Absentièsme</h2>
+              <app-box-plot [min]="minAbsenteeismByBusinessUnit" [q1]="firstQuartileAbsenteeismByBusinessUnit"
+                [median]="medianAbsenteeismByBusinessUnit" [q3]="thirdQuartileAbsenteeismByBusinessUnit"
+                [max]="maxAbsenteeismByBusinessUnit" [employeeValue]="absenteeism">
+              </app-box-plot>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+        </div>
+
+        <div class="card">
+          <div class="mat-card-content">
+
+            <div class="section-container">
+              <h2 class="subtitle">Employés ayant la Même Classification</h2>
+              <h2 class="subsubtitle">{{countByClassification}} membres</h2>
+            </div>
+            <div class="line"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Position dans la Fourchette Salariale</h2>
+              <app-box-plot [min]="minSalaryByClassification" [q1]="firstQuartileSalaryByClassification"
+                [median]="medianSalaryByClassification" [q3]="thirdQuartileSalaryByClassification"
+                [max]="maxSalaryByClassification" [employeeValue]="salary">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Évaluation des Performances</h2>
+
+              <app-box-plot *ngIf="!performance" [min]="minPerformanceByClassification"
+                [q1]="firstQuartilePerformanceByClassification" [median]="medianPerformanceByClassification"
+                [q3]="thirdQuartilePerformanceByClassification" [max]="maxPerformanceByClassification"
+                [employeeValue]="0">
+              </app-box-plot>
+
+              <app-box-plot
+                *ngIf="performance && performance <= maxPerformanceByClassification && performance >= minPerformanceByClassification"
+                [min]="minPerformanceByClassification" [q1]="firstQuartilePerformanceByClassification"
+                [median]="medianPerformanceByClassification" [q3]="thirdQuartilePerformanceByClassification"
+                [max]="maxPerformanceByClassification" [employeeValue]="performance">
+              </app-box-plot>
+
+              <p *ngIf="performance > maxPerformanceByClassification || performance < minPerformanceByClassification">
+                Non évalué</p>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Expérience</h2>
+              <app-box-plot [min]="minExperienceByClassification" [q1]="firstQuartileExperienceByClassification"
+                [median]="medianExperienceByClassification" [q3]="thirdQuartileExperienceByClassification"
+                [max]="maxExperienceByClassification" [employeeValue]="experience">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Productivité</h2>
+              <app-box-plot [min]="minAttendanceByClassification" [q1]="firstQuartileAttendanceByClassification"
+                [median]="medianAttendanceByClassification" [q3]="thirdQuartileAttendanceByClassification"
+                [max]="maxAttendanceByClassification" [employeeValue]="attendance">
+              </app-box-plot>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="section-container">
+              <h2 class="subsubtitle">Taux d'Absentièsme</h2>
+              <app-box-plot [min]="minAbsenteeismByClassification" [q1]="firstQuartileAbsenteeismByClassification"
+                [median]="medianAbsenteeismByClassification" [q3]="thirdQuartileAbsenteeismByClassification"
+                [max]="maxAbsenteeismByClassification" [employeeValue]="absenteeism">
+              </app-box-plot>
+            </div>
+          </div>
+
+          <div class="spacer"></div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

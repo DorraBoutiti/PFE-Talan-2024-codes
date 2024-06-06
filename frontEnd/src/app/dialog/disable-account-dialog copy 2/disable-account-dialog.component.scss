@@ -1,0 +1,28 @@
+.dialog-container {
+  padding: 1em;
+  margin: 0em 2em;
+
+  .title {
+    font-family: 'Sentinel Pro';
+    color: #457b9d;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  p, span {
+    font-family: 'Sentinel Pro';
+    text-align: center;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .btn {
+      color: #fff;
+      background-color: #457b9d;
+    }
+  }
+}

@@ -1,0 +1,141 @@
+<ng-container *ngIf="currentUser">
+  <div class="alert" *ngIf="alertForm">
+    <ng-container *ngIf="currentUser.role != 'HR_EXPERT'">
+      <h2 class="first-title">Paramétrage des règles d'alerte</h2>
+      <div class="card">
+        <div card-body>
+          <mat-stepper orientation="horizontal" linear #stepper>
+            <mat-step [stepControl]="alertForm.controls['businessUnit']">
+              <form [formGroup]="alertForm">
+                <ng-template matStepLabel><span>Sélectionner votre unité organisationnelle</span></ng-template>
+                <mat-form-field class="form-field">
+                  <mat-label><span>Sélectionnez une unité organisationnelle</span></mat-label>
+                  <input type="text" matInput placeholder="Unité organisationnelle" aria-label="Unité organisationnelle"
+                    formControlName="businessUnit" required [matAutocomplete]="auto" (input)="onInputChange($event)">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+                    (optionSelected)="onOptionSelected($event.option.value)">
+                    <mat-option *ngFor="let option of filteredBusinessUnitOptions | async" [value]="option">
+                      <span>{{option}}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperNext><span class="btn">Suivant</span></button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="alertForm.controls['alertType']">
+              <form [formGroup]="alertForm">
+                <ng-template matStepLabel><span>Choisir le type d'alerte</span></ng-template>
+                <mat-form-field class="form-field">
+                  <mat-label><span>Type d'alerte</span></mat-label>
+                  <input type="text" matInput placeholder="Sélectionnez le type d'alerte que vous souhaitez configurer"
+                    aria-label="Type d'alerte" formControlName="alertType" required [matAutocomplete]="autoAlertType"
+                    (input)="onInputChangeAlertType($event)">
+                  <mat-autocomplete autoActiveFirstOption #autoAlertType="matAutocomplete"
+                    (optionSelected)="onOptionSelectedAlertType($event.option.value)">
+                    <mat-option *ngFor="let option of filteredAlertOptions | async" [value]="option">
+                      <span *ngIf="option == 'Cas Urgent'"><i style="color: #e63946; margin-right: 5px;"
+                          class="fa-solid fa-circle-exclamation"></i> {{option}}</span>
+                      <span *ngIf="option == 'Alerte'"><i style="color: #fca311; margin-right: 5px;"
+                          class="fa-solid fa-triangle-exclamation"></i> {{option}}</span>
+                      <span *ngIf="option == 'Situation Standard'"><i style="color: #a8dadc; margin-right: 5px;"
+                          class="fa-solid fa-circle-check"></i> {{option}}</span>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious><span class="btn">Précédent</span></button>
+                  <button mat-button matStepperNext><span class="btn">Suivant</span></button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="alertForm.controls['pourcentageMin']">
+              <form [formGroup]="alertForm">
+                <ng-template matStepLabel><span>Déclencher l'alerte lorsque le pourcentage se situe entre X% et
+                    Y%</span></ng-template>
+                <div class="slider">
+                  <mat-label><span>Ajuster la plage de pourcentages (0 - 100) %</span></mat-label>
+                  <mat-slider step="1" discrete=true showTickMarks=false>
+                    <input matSliderStartThumb formControlName="pourcentageMin">
+                    <input matSliderEndThumb formControlName="pourcentageMax">
+                  </mat-slider>
+                </div>
+                <div>
+                  <button mat-button matStepperPrevious><span class="btn">Précédent</span></button>
+                  <button mat-button matStepperNext (click)="addAlert();"><span class="btn">Terminé</span></button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel><span>Terminé</span></ng-template>
+              <p>{{ stepperText }}</p>
+              <div>
+                <button mat-button (click)="stepper.reset()"><span class="btn">Ajouter une nouvelle
+                    alerte</span></button>
+              </div>
+            </mat-step>
+          </mat-stepper>
+        </div>
+      </div>
+    </ng-container>
+
+    <h2 class="second-title">Historique des règles</h2>
+    <div class="card">
+      <div class="card-body" *ngIf="alerts">
+        <div class="head-content-left">
+          <div class="search-container">
+            <div class="normal-search">
+              <input type="search" class="search" name="" id="" placeholder="Rechercher par unité organisationnelle.."
+                [formControl]="searchByBUControl" [matAutocomplete]="autoSearch" (input)="onInputSearchChange($event)">
+              <mat-autocomplete autoActiveFirstOption #autoSearch="matAutocomplete"
+                (optionSelected)="onOptionSearchSelected($event.option.value)">
+                <mat-option *ngFor="let option of filteredSearchBUOptions | async" [value]="option">
+                  <span>{{option}}</span>
+                </mat-option>
+              </mat-autocomplete>
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="alerts.length > 0">
+          <ng-container *ngFor="let alert of sortAlertsByDateDesc(alerts); let last=last">
+            <div class="list-item" [style.margin-bottom]="last ? '0' : '2.5em'">
+              <div id="profileImage">{{ getInitials(alert.user) }}</div>
+              <div class="user-info">
+                <div style="font-weight: 700;">{{ formatName(alert.user) }}</div>
+                <div style="font-weight: 400;">
+                  {{ alert.user.role === 'HR_DIRECTOR' ? 'Directeur RH' : (currentUser.role === 'EXPERT_RH' ? 'Expert RH' : 'Manager') }}
+                </div>
+                <div style="font-weight: 700;">{{ alert.date | date }}</div>
+              </div>
+              <div class="user-info">
+                <div style="font-weight: 700;">Type d'Alerte : &nbsp;
+                  <span *ngIf="alert.alertType == 'EMERGENCY'"><i style="color: #e63946; margin-right: 5px;"
+                      class="fa-solid fa-circle-exclamation"></i> Cas Urgent</span>
+                  <span *ngIf="alert.alertType == 'WARNING'"><i style="color: #fca311; margin-right: 5px;"
+                      class="fa-solid fa-triangle-exclamation"></i> Alerte</span>
+                  <span *ngIf="alert.alertType == 'STANDARD'"><i style="color: #a8dadc; margin-right: 5px;"
+                      class="fa-solid fa-circle-check"></i> Situation Standard</span>
+                </div>
+                <div style="font-weight: 700;"><i class="fa-solid fa-circle-chevron-up" style="color: #457b9d;"></i> {{
+                  alert.pourcentageMin + '-' + alert.pourcentageMax }}%</div>
+                <div style="font-weight: 700;">Unité Organisationnelle : <span style="font-weight: 400;">{{
+                    alert.businessUnit.businessUnit }}</span></div>
+              </div>
+              <div class="delete-btn"
+                *ngIf="currentUser.role == 'HR_DIRECTOR' || (currentUser.role == 'MANAGER' && currentUser.businessUnit?.businessUnit == alert.businessUnit.businessUnit)">
+                <button mat-icon-button (click)="openDialog(alert.id, '0ms', '0ms')">
+                  <i class="fa-solid fa-file-circle-xmark" style="color: #e63946;"></i>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <p *ngIf="alerts.length == 0">{{ listText }}</p>
+      </div>
+    </div>
+
+  </div>
+</ng-container>

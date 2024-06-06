@@ -1,0 +1,243 @@
+// Header
+
+.header {
+  display:  flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .title {
+    font-family: 'Sentinel Pro';
+    color: #457b9d;
+    font-weight: 900;
+    padding-left: 1.5rem;
+  }
+
+  mat-chip {
+    margin-right: 1.5rem;
+    --mdc-chip-label-text-font:'Sentinel Pro';
+    --mdc-chip-elevated-container-color: #457b9d;
+    --mdc-chip-label-text-color: #fff;
+
+    i {
+      color: #fff;
+      padding-left: 0.5rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.question-title {
+  padding-left: 1.5rem;
+}
+
+.high-risk {
+  display: flex;
+  flex-direction: row;
+  padding-left: 1.5rem;
+
+  h3 {
+    font-size: 30px;
+    font-family: 'Sentinel Pro';
+    font-weight: 700;
+    margin-right: 0.75rem;
+  }
+
+  h4 {
+    font-family: 'Sentinel Pro';
+    width: 320px;
+  }
+}
+
+// On single stacked bar
+
+.stacked-bar-chart {
+  display: flex;
+  justify-content: center;
+
+  .stacked-bar-chart-container {
+    width: 95%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .section {
+    margin-top: 40px;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+
+    .subtitle {
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+      position: absolute;
+      font-size: 13px;
+      font-weight: 800;
+      color: #000;
+      top: -40px;
+      text-align: center;
+    }
+
+    .subsubtitle {
+      text-align: center;
+      display: block;
+      margin: 0 auto;
+      position: absolute;
+      font-size: 10px;
+      font-weight: 800;
+      top: -25px;
+      color: #707070;
+      text-align: center;
+    }
+
+    .section-text {
+      position: relative;
+      color: #000;
+    }
+  }
+
+  .section1 {
+    background-color: #a8dadc;
+  }
+
+  .section2 {
+    background-color: #fca311;
+  }
+
+  .section3 {
+    background-color: #e63946;
+  }
+
+  .custom-tooltip {
+    white-space: pre-line;
+  }
+}
+
+.sub-stacked-bar-chart {
+  display: flex;
+  justify-content: center;
+
+  .sub-stacked-bar-chart-container {
+    width: 95%;
+    height: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .section {
+    position: relative;
+    height: 100%;
+    text-align: center;
+  }
+
+  .section1 {
+    background-color: #a8dadc;
+  }
+
+  .section2 {
+    background-color: #fca311;
+  }
+
+  .section3 {
+    background-color: #e63946;
+  }
+
+  .custom-tooltip {
+    white-space: pre-line;
+  }
+}
+
+::ng-deep .custom-tooltip  {
+  white-space: pre-line !important;
+  --mdc-plain-tooltip-supporting-text-font: 'Sentinel Pro';
+  --mdc-plain-tooltip-container-color: #1d3557;
+  --mdc-plain-tooltip-supporting-text-color: #fff;
+}
+
+// Axe X
+
+.scale {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+
+  .scale-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    color: #ccc;
+    border-top: 1px solid #ccc;
+
+    span {
+      font-size: 12px;
+      flex: 0 0 auto;
+    }
+  }
+}
+
+// Table
+
+.table {
+  position: relative;
+
+  .filters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 35px;
+
+    .filter-text {
+      font-family: 'Sentinel Pro';
+      font-size: 15px;
+      font-weight: 800;
+      padding-left: 1.5rem;
+    }
+
+    .select-filter {
+      width: 13.5%;
+    }
+
+    .search-filter {
+      width: 60%;
+    }
+  }
+}
+
+mat-form-field {
+  font-size: 14px;
+}
+
+.table-by-employee, .table-by-uo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .table-paginator {
+    width: 90%;
+    table {
+
+      --mdc-circular-progress-active-indicator-color: #fff;
+
+      th, .firstColumn {
+        color: #457b9d;
+      }
+
+      .mat-cell {
+        padding-top: 20px;
+        text-align: center;
+      }
+    }
+  }
+}

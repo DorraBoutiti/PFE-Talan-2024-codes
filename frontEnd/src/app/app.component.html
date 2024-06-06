@@ -1,0 +1,11 @@
+<ng-container *ngIf="authService.isLoggedIn(); else notLoggedIn">
+  <ng-container *ngIf="currentUser">
+    <app-side-nav (onToggleSideNav)="onToggleSideNav($event)"></app-side-nav>
+    <app-nav-bar [currentUser]="currentUser" [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-nav-bar>
+    <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
+  </ng-container>
+</ng-container>
+
+<ng-template #notLoggedIn>
+  <app-login></app-login>
+</ng-template>

@@ -1,0 +1,126 @@
+.title {
+  font-family: 'Sentinel Pro';
+  color: #457b9d;
+  font-weight: 900;
+  padding-left: 1.5rem;
+}
+
+.employees-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  mat-form-field {
+    font-size: 14px;
+    width: 90%;
+  }
+
+  div {
+    width: 90%;
+
+    table {
+      --mdc-circular-progress-active-indicator-color: #fff;
+    }
+  }
+
+  .mat-cell {
+    padding-top: 20px;
+    text-align: center;
+  }
+
+  .no-comments {
+    padding: 15px;
+    width: 280px;
+    font-size: 15px;
+  }
+
+  mat-hint {
+    width: 380px;
+    margin: 15px;
+  }
+
+  mat-card {
+    background-color: #f5f5f5;
+    margin: 15px;
+  }
+
+  .salary-section {
+    background-color: #a8dadc;
+  }
+
+  form {
+    margin: 15px;
+  }
+
+  mat-menu {
+    font-size: 15px;
+  }
+
+  mat-card-title {
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  button {
+    margin-right: 15px;
+
+    .analyze-btn {
+      display: flex;
+      align-items: center;
+    }
+
+    .analyze-btn-text {
+      margin-right: 10px;
+    }
+
+    .analyze-btn-text-in-progress {
+      margin-right: 10px;
+      color: #1d3557;
+    }
+
+    mat-spinner {
+      --mdc-circular-progress-active-indicator-color: #1d3557;
+      margin-right: 5px;
+    }
+  }
+
+  .left-title {
+    margin-right: auto;
+  }
+
+  .right-title {
+    color: #707070;
+  }
+
+  img {
+    width: 2.5em;
+    height: 2.5em;
+    clip-path: ellipse(50% 50%);
+    font-size: medium;
+    //text-align: center;
+    line-height: 2em;
+    margin: 0 2em;
+    //padding: 5px;
+    cursor: pointer;
+  }
+}
+
+// Snackbar
+
+::ng-deep .custom-snackbar-error {
+  --mdc-snackbar-container-color: #e63946;
+  color: #fff;
+  --mdc-snackbar-supporting-text-color: #fff;
+  --mat-mdc-snack-bar-button-color: #fff;
+
+  button {
+    border: none;
+    --mdc-snackbar-container-color: #e63946;
+    color: #fff;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mat-snack-bar-button-color: #fff;
+  }
+}
