@@ -42,21 +42,55 @@ Chaque équipe suit un processus de contribution similaire pour pousser ses trav
 ```bash
 # Installer l'API OpenAI
 pip install openai
+```
 
+```bash
 # Créer un environnement virtuel
 virtualenv -p python3 .venv
+```
 
+```bash
 # Activer l'environnement virtuel (Linux / macOS)
 source .venv/bin/activate
+```
 
+```bash
 # Activer l'environnement virtuel (Windows)
 .venv\Scripts\activate
+```
 
+```bash
 # Installer les dépendances
 pip install -r requirements.txt
+```
 
+```bash
 # Exécuter le script de modèle
 python model.py
+```
 
+```bash
 # Démarrer le serveur Flask
 flask run
+```
+
+## Partie Front-end avec Angular
+
+1. **Installation des dépendances :**
+Dans le répertoire du projet front-end :
+
+```bash
+npm install
+```
+
+2. **Lancer l'application :**
+```bash
+ng serve
+```
+Accédez à http://localhost:4200 dans votre navigateur pour visualiser l'application.
+
+## Partie Back-end avec Spring
+Configuration
+
+## Partie SQL : Création et insertion des tables
+Les instructions pour créer et insérer des tables SQL doivent être fournies dans la documentation correspondante.
