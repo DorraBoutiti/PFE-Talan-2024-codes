@@ -37,4 +37,26 @@ Chaque équipe suit un processus de contribution similaire pour pousser ses trav
 5. **Mise à Jour de la Branche Principale :**
    - Les responsables de chaque équipe sont chargés de fusionner ou réintégrer les branches des membres de leur équipe dans la branche principale, si et quand ils le jugent approprié.
 
+## Configuration de la partie Flask AI
 
+```bash
+# Installer l'API OpenAI
+pip install openai
+
+# Créer un environnement virtuel
+virtualenv -p python3 .venv
+
+# Activer l'environnement virtuel (Linux / macOS)
+source .venv/bin/activate
+
+# Activer l'environnement virtuel (Windows)
+.venv\Scripts\activate
+
+# Installer les dépendances
+pip install -r requirements.txt
+
+# Exécuter le script de modèle
+python model.py
+
+# Démarrer le serveur Flask
+flask run
