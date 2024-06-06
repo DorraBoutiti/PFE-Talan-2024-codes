@@ -13,3 +13,4 @@ llama_index
 llama-index-llms-openai
 llama-index-experimental
 distutils-pytest
+setuptools
