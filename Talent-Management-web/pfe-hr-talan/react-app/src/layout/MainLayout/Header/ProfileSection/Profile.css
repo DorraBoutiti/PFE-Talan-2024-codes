@@ -1,0 +1,125 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*margin: 50px 0;*/
+    font-family: Arial, sans-serif;
+    height: 800px;
+    width: 1200px;
+}
+
+.profile-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #333;
+    text-align: center;
+}
+
+.profile-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /*height: 100%;*/
+}
+
+.profile-details, .password-change {
+    margin-bottom: 20px;
+}
+
+.profile-details p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+.profile-details input {
+    /*width: calc(100% - 20px);*/
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.input-1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    input {
+        width: calc(50% - 20px);
+    }
+}
+
+.emailInput {
+    width: calc(100% - 20px);
+}
+
+.input-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    input {
+        width: calc(50% - 20px);
+    }
+}
+
+.save-btn, .cancel-btn, .edit-btn, .change-password-btn, .edit-btn-password {
+    /*display: flex-end;
+    align-items: center;*/
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.flex-start {
+    display: flex;
+    justify-content: start;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: end;
+    margin-top: -50px;
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+    margin-right: 25px;
+}
+
+.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-btn, .edit-btn-password {
+    background-color: #007bff;
+    color: white;
+}
+
+.change-password-btn {
+    background-color: #ffc107;
+    color: black;
+    width: auto;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+.save-btn:hover, .cancel-btn:hover, .edit-btn:hover, .change-password-btn:hover, .logout-btn:hover, .edit-btn-password:hover {
+    opacity: 0.9;
+}
+
+.password-change input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}

@@ -1,0 +1,50 @@
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.toggle-button {
+  margin-bottom: 20px;
+}
+
+.zones-container {
+  width: 100%;
+}
+
+.zone {
+  padding: 20px;
+}
+
+.input-box {
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.button {
+  margin: 0 10px;
+}
+
+.response-box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 100%;
+  min-height: 200px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #333;
+  background-color: white;
+  white-space: pre-wrap;
+}
+
+.split-screen .zones-container {
+  display: flex;
+}

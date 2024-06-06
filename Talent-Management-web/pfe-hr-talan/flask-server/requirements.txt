@@ -1,0 +1,15 @@
+openai
+flask
+flask_cors
+flask-sqlalchemy
+flask-restful
+flask-marshmallow
+marshmallow-sqlalchemy
+pandas
+numpy
+python-dotenv
+tabulate
+llama_index
+llama-index-llms-openai
+llama-index-experimental
+distutils-pytest
