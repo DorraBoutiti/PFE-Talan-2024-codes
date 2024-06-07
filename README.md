@@ -48,8 +48,11 @@ Avant de démarrer le projet, assurez-vous d'ajouter votre clé API OpenAI dans 
 4. Assurez-vous que les fichiers `hidden.txt` ne sont pas inclus dans vos commits pour des raisons de sécurité.
 
 5. Vous devez télécharger quelques fichiers volumineux et les ajouter aux emplacements indiqués :
+ 
    [data.csv](https://drive.google.com/file/d/1EKZMRAjWzY-PRyn_V9tou98IeaerTUIl/view?usp=sharing) to .\Talent-Management-recommender
+   
    [fact_personnel.csv](https://drive.google.com/file/d/1Twu1e51iqEU8ULUb4iQN61WcrQZjqEYW/view?usp=drive_link) to .\Talent-Management-web\flask-server\csvs
+   
    [Table_Évaluationl.csv](https://drive.google.com/file/d/1ZEGKUs_wdW3xgBcx652dpS6uVUwGL7Ze/view?usp=drive_link) to .\Talent-Management-web\flask-server\csvs
 
 ## Installation
