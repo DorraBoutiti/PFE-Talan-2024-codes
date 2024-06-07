@@ -49,7 +49,7 @@ Avant de démarrer le projet, assurez-vous d'ajouter votre clé API OpenAI dans 
 
 5. Vous devez télécharger quelques fichiers volumineux et les ajouter aux emplacements indiqués :
  
-   [data.csv](https://drive.google.com/file/d/1EKZMRAjWzY-PRyn_V9tou98IeaerTUIl/view?usp=sharing) to .\Talent-Management-recommender
+   [data.csv](https://drive.google.com/file/d/1G_bwuApVD-aqn32-3L6Jv3Zou6D7KAii/view?usp=sharing) to .\Talent-Management-recommender
    
    [fact_personnel.csv](https://drive.google.com/file/d/1Twu1e51iqEU8ULUb4iQN61WcrQZjqEYW/view?usp=drive_link) to .\Talent-Management-web\flask-server\csvs
    
