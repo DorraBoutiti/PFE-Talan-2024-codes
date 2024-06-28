@@ -3,7 +3,7 @@ import json
 import base64
 from io import BytesIO
 from PIL import Image
-from app.server import app  # Ensure your app instance is imported correctly
+from app.server import app  
 
 class TestEndpoint(unittest.TestCase):
     def setUp(self):

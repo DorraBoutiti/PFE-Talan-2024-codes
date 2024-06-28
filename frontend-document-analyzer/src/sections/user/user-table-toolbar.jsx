@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Tooltip from '@mui/material/Tooltip';
@@ -9,9 +10,13 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import Iconify from 'src/components/iconify';
 
-// ----------------------------------------------------------------------
-
 export default function UserTableToolbar({ numSelected, filterName, onFilterName }) {
+  const handleInputChange = (event) => {
+    const { value } = event.target || ""; // Ensure event.target is defined
+    console.log('Typed text:', value); // Log the typed text
+    onFilterName(value); // Call parent handler with input value
+  };
+
   return (
     <Toolbar
       sx={{
@@ -32,8 +37,8 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
       ) : (
         <OutlinedInput
           value={filterName}
-          onChange={onFilterName}
-          placeholder="Search user..."
+          onChange={handleInputChange}
+          placeholder="Search ..."
           startAdornment={
             <InputAdornment position="start">
               <Iconify
@@ -52,11 +57,18 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <Iconify icon="ic:round-filter-list" />
-          </IconButton>
-        </Tooltip>
+        <div>
+          <Tooltip title="Filter list">
+            <IconButton>
+              <Iconify icon="ic:round-filter-list" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Validate all documents">
+            <IconButton>
+              <Iconify icon="eva:done-all-outline" />
+            </IconButton>
+          </Tooltip>
+        </div>
       )}
     </Toolbar>
   );
@@ -65,5 +77,5 @@ export default function UserTableToolbar({ numSelected, filterName, onFilterName
 UserTableToolbar.propTypes = {
   numSelected: PropTypes.number,
   filterName: PropTypes.string,
-  onFilterName: PropTypes.func,
+  onFilterName: PropTypes.func.isRequired,
 };

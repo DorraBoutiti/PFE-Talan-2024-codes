@@ -1,8 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "HrDocumentAnalyzer API",
-        "version": "1.0.0"
+        "title": "HrDocumentAnalyzer upload module API",
+        "version": "1.0.0",
+        "description": "API for document analysis including converting files to base64, detecting file types, and converting PDF/DOCX files to images."
     },
     "basePath": "/",
     "schemes": [
@@ -121,6 +122,42 @@
                     "required": true,
                     "type": "file",
                     "description": "The DOCX file to be converted to images."
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "images": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "description": "List of base64 encoded images."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/file-to-base64": {
+            "post": {
+                "summary": "Convert file to base64",
+                "consumes": ["multipart/form-data"],
+                "parameters": [{
+                    "name": "file",
+                    "in": "formData",
+                    "required": true,
+                    "type": "file",
+                    "description": "The file to be converted to base64."
                 }],
                 "responses": {
                     "200": {

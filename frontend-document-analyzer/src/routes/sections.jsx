@@ -11,9 +11,11 @@ export const ChatbotPage = lazy(() => import('src/pages/chatbot'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
+
 // ----------------------------------------------------------------------
 
 export default function Router() {
+  
   const routes = useRoutes([
     {
       element: (
@@ -24,14 +26,14 @@ export default function Router() {
         </DashboardLayout>
       ),
       children: [
-        { element: <IndexPage />, index: true },
+        { path: '/:id/landing', element: <IndexPage />, index: true },
         { path: '/:id/documents', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
         
       ],
     },
-    { path: 'chatbot/:full_name/:id', element: <ChatbotPage /> }, // New route added
+    { path: 'chatbot/:full_name/:id', element: <ChatbotPage /> },
     {
       path: 'new-candidat',
       element: <NewCandidatPage />,

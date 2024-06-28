@@ -10,10 +10,9 @@ from routers import ocr
 from utils.ImageHelper import *
 
 app = FastAPI(title="Paddle OCR API",
-              description="基于 Paddle OCR 和 FastAPI 的自用接口")
+              description="OCR API for PaddleOCR",)
 
 
-# 跨域设置
 origins = [
     "*"
 ]
@@ -27,4 +26,4 @@ app.add_middleware(
 
 app.include_router(ocr.router)
 
-# uvicorn.run(app=app, host="0.0.0.0", port=8003)
+# uvicorn.run(app=app, host="0.0.0.0", port=8000)

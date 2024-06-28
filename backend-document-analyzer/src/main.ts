@@ -15,8 +15,8 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle('Documentation')
-    .setDescription('API description')
+    .setTitle('Backend Documentation HrDocumentAnalyzer')
+    .setDescription('API backend HrDocumentAnalyzer description')
     .setVersion('1.0')
     .addTag('HrDocumentAnalyzer')
     .build();

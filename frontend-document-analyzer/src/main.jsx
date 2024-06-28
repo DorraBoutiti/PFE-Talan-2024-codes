@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';

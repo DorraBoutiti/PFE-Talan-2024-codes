@@ -33,7 +33,7 @@ export default function UserTableHead({
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
           />
-        </TableCell>
+        </TableCell>       
 
         {headLabel.map((headCell) => (
           <TableCell

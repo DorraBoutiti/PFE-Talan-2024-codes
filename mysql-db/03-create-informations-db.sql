@@ -4,7 +4,7 @@ USE document_analyzer;
 CREATE TABLE information_extraites (
    id INT AUTO_INCREMENT PRIMARY KEY,
    id_document INT,
-   nomChamp VARCHAR(100) NOT NULL,
-   valeur VARCHAR(255) NOT NULL,
+   nomChamp VARCHAR(50) NOT NULL,
+   valeur VARCHAR(100) NOT NULL,
    FOREIGN KEY (id_document) REFERENCES document(id)
 );

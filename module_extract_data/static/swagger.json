@@ -25,6 +25,64 @@
           }
         }
       }
+    },
+    "/extract": {
+      "post": {
+        "summary": "Extract document information",
+        "description": "Extracts information based on document class code and provided text.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "example": "DOC01"
+                },
+                "text": {
+                  "type": "string",
+                  "example": "This is an example employment contract text."
+                }
+              },
+              "required": ["code", "text"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document information extracted successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid document class code",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Invalid document class code"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

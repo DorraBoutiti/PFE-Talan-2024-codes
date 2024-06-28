@@ -1,17 +1,15 @@
 import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import Box  from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { alpha, useTheme } from '@mui/material/styles';
-
-import { bgGradient } from '../../theme/css';
 
 import Logo from '../../components/logo';
+import { bgGradient } from '../../theme/css';
 import * as api from '../../services/service1';
 
 const itemDescriptions = {
@@ -50,11 +48,10 @@ const itemDescriptions = {
 };
 
 export default function ChatbotView() {
-  const theme = useTheme();
+ 
   const { full_name, id } = useParams();
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-  const [userResponses, setUserResponses] = useState([]);
-  const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState([]);
   const [DOCUMENTS, setDOCUMENTS] = useState([]);
 
   useEffect(() => {
@@ -88,7 +85,7 @@ export default function ChatbotView() {
     }
     return (
       <>
-        <Typography variant="body1">Here is the list of documents:</Typography>
+        <Typography variant="body1">Hi {full_name}, Here is the list of documents you are supposed to upload:</Typography>
         <ul>
           {DOCUMENTS.map((document, index) => (
             <li key={index}>{itemDescriptions[document]}</li>
@@ -112,8 +109,7 @@ export default function ChatbotView() {
   return (
     <Box
       sx={{
-        ...bgGradient({
-          color: alpha(theme.palette.background.default, 0.9),
+        ...bgGradient({          
           imgUrl: '/assets/background/overlay_4.jpg',
         }),
         height: 1,

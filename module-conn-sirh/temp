@@ -1,0 +1,29 @@
+# Use an appropriate base image for your Java application
+FROM openjdk:17-jdk-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Maven wrapper scripts and the POM file into the container
+COPY mvnw .
+COPY mvnw.cmd .
+COPY .mvn/ .mvn/
+COPY pom.xml .
+
+# Copy all project dependencies (JAR files under lib/) into the container
+COPY lib/ lib/
+
+# Build all dependencies for caching (this might not be necessary depending on your use case)
+RUN ./mvnw dependency:go-offline -B
+
+# Copy the rest of the project (source code) into the container
+COPY src/ src/
+
+# Package the application
+RUN ./mvnw package -DskipTests
+
+# Expose the port your application listens to
+EXPOSE 8080
+
+# Command to run the application
+CMD ["java", "-jar", "target/app.jar"]

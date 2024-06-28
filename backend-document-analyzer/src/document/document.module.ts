@@ -7,10 +7,14 @@ import { CandidatModule } from '../candidat/candidat.module';
 import { Candidat } from '../candidat/entities/candidat.entity';
 import { InformationsExtraitesModule } from '../informations-extraites/informations-extraites.module';
 import { HttpModule } from '@nestjs/axios';
+import { InformationExtraitesRepository } from '../informations-extraites/information-extraites.repository';
+import { InformationExtraites } from '../informations-extraites/entities/informations-extraite.entity';
 
 @Module({
+
   controllers: [DocumentController],
-  providers: [DocumentService],
-  imports: [TypeOrmModule.forFeature([Document, Candidat]), CandidatModule, InformationsExtraitesModule, HttpModule],
+  providers: [DocumentService, InformationExtraitesRepository],
+  exports: [DocumentService, InformationExtraitesRepository],
+  imports: [TypeOrmModule.forFeature([Document, Candidat, InformationExtraites]), CandidatModule, InformationsExtraitesModule, HttpModule],
 })
 export class DocumentModule {}

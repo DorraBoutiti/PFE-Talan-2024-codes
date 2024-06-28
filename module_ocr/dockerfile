@@ -1,6 +1,9 @@
 FROM python:3.8-slim-bullseye
 
-EXPOSE 8003
+EXPOSE 8000
+
+# Install OpenJDK (Java) and other required packages
+RUN apt-get update && apt-get install -y openjdk-11-jdk
 
 # Set working directory
 WORKDIR /app

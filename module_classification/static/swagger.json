@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "HrDocumentAnalyzer API",
-    "description": "API documentation for the HrDocumentAnalyzer service",
+    "title": "HrDocumentAnalyzer classification API",
+    "description": "API documentation for the HrDocumentAnalyzer classification service",
     "version": "1.0.0"
   },
   "host": "localhost:8006",
@@ -20,11 +20,52 @@
             "description": "A greeting message",
             "schema": {
               "type": "string",
-              "example": "Hello from Module Speech-to-Text"
+              "example": "Hello from Module"
             }
+          }
+        }
+      },
+      
+      "/classify-document": {
+      "post": {
+        "summary": "Classify a document",
+        "description": "Classify the type of a document based on its text content",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Document text to classify",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "document_text": {
+                  "type": "string",
+                  "description": "The text content of the document to be classified"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document type successfully classified",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "document_type": {
+                  "type": "string",
+                  "description": "The type of document detected"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request: Document text not provided or invalid format"
           }
         }
       }
     }
   }
+}
 }

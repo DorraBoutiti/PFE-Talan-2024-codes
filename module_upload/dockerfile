@@ -49,13 +49,13 @@ COPY static /module_upload/static
 COPY testDocs /module_upload/testDocs
 
 # Set environment variables
-ENV FLASK_RUN_PORT=8000
+ENV FLASK_RUN_PORT=8009
 ENV FLASK_APP=server.py  
 
 # Expose the port the Flask app runs on
-EXPOSE 8000
+EXPOSE 8009
 
 # # Command to run the tests and see coverage report
-RUN ["python", "run_tests.py"]
+# RUN ["python", "run_tests.py"]
 
-CMD ["flask", "run", "--host=0.0.0.0" , "--port=8000"]
+CMD ["flask", "run", "--host=0.0.0.0" , "--port=8009"]

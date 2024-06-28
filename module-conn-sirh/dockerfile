@@ -1,0 +1,29 @@
+# Use a base image with Maven and Java installed
+FROM maven:3.9.7 AS builder
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the source code including pom.xml into the container
+COPY . .
+
+# Copy the settings.xml into the container
+COPY ./.m2/ /root/.m2/
+
+# Build the application using Maven
+RUN mvn clean package -DskipTests
+
+# Use a lighter base image for runtime
+FROM amazoncorretto:17.0.6
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the compiled JAR file from the builder stage
+COPY --from=builder /app/target/my-spring-boot-app.jar /app/my-spring-boot-app.jar
+
+# Copy specific JAR dependencies from the builder stage
+COPY --from=builder lib/*.jar /app/lib/
+
+# Run the Spring Boot application when the container launches
+CMD ["java", "-cp", "/app/my-spring-boot-app.jar:/app/lib/*", "com.hracces.openhr.Application"]

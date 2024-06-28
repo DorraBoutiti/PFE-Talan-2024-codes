@@ -5,17 +5,17 @@ import SvgColor from 'src/components/svg-color';
 const icon = (name) => (
   <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
 );
-
+const candidateId = sessionStorage.getItem("candidateId");
 const navConfig = [
   {
     title: 'dashboard',
-    path: '/',
-    icon: icon('ic_analytics'),
+    path: `/${candidateId}/landing`,  
+    icon: icon('ic_user'),
   },
   {
     title: 'Documents',
-    path: '/:id/documents',
-    icon: icon('ic_user'),
+    path: `/${candidateId}/documents`,
+    icon: icon('ic_doc'),
   },
   
 ];

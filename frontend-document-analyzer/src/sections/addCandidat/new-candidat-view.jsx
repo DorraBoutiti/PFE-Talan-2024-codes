@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -12,10 +12,11 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { alpha, useTheme } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import { bgGradient } from '../../theme/css';
 import Logo from '../../components/logo';
-import  SearchBar  from '../../layouts/dashboard/common/searchbar';
+import { bgGradient } from '../../theme/css';
 import * as api from '../../services/service1';
+import  SearchBar  from '../../layouts/dashboard/common/searchbar';
+
 
 const itemDescriptions = {
   DOC01: 'Maroc - Contrat de travail',
@@ -54,6 +55,9 @@ const itemDescriptions = {
 
 export default function AddCandidatView() {
   const theme = useTheme();
+  useEffect(() => {
+    sessionStorage.clear();
+  })
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',

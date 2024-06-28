@@ -40,10 +40,9 @@ export default function Searchbar() {
 
   const handleInputChange = async (newValue) => {
     try {
-      console.log(newValue);
-      setValue(newValue); // Update input value state
-      const response = await api.search(newValue);
-      console.log(response);
+      
+      setValue(newValue); 
+      const response = await api.search(newValue);      
       setOptions(response);
     } catch (error) {
       console.error('Error fetching options:', error);

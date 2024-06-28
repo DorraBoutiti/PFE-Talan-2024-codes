@@ -5,16 +5,24 @@ networks:
 
 services:
 
-  mysql-db:    
-    container_name:  mysql-db
+  cypress:
+    build:
+      context: ./cypress-container
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    environment:
+      - CYPRESS_baseUrl=https://example.com
+
+  mysql-db:
+    container_name: mysql-db
     image: mysql:latest 
-    #command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     env_file: ./.env
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQLDB_PASSWORD
     ports:
-      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+      - "$MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT"
     volumes:
       - mysql-volume:/var/lib/mysql:rw
       - ./mysql-db:/docker-entrypoint-initdb.d/
@@ -23,13 +31,11 @@ services:
 
   backend-document-analyzer:
     container_name: backend-document-analyzer
-    # depends_on:
-    #   - mysql-db
     build: ./backend-document-analyzer
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $NESTJS_APP_LOCAL_PORT:$NESTJS_APP_DOCKER_PORT
+      - "$NESTJS_APP_LOCAL_PORT:$NESTJS_APP_DOCKER_PORT"
     environment:
       - DB_HOST=$MYSQLDB_HOST
       - DB_USER=$MYSQLDB_USER
@@ -46,21 +52,18 @@ services:
 
   frontend-document-analyzer:
     container_name: frontend-document-analyzer
-    # depends_on: 
-      # - backend-document-analyzer
     build:
       context: ./frontend-document-analyzer
       dockerfile: Dockerfile
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $REACTJS_APP_LOCAL_PORT:$REACTJS_APP_DOCKER_PORT
+      - "$REACTJS_APP_LOCAL_PORT:$REACTJS_APP_DOCKER_PORT"
     stdin_open: true
     tty: true
     volumes:
       - ./frontend-document-analyzer:/app
       - /app/node_modules
-      
     networks:
       - default
   
@@ -72,7 +75,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $MODULE_UPLOAD_LOCAL_PORT:$MODULE_UPLOAD_DOCKER_PORT
+      - "$MODULE_UPLOAD_LOCAL_PORT:$MODULE_UPLOAD_DOCKER_PORT"
     stdin_open: true
     tty: true
     volumes:
@@ -88,7 +91,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $MODULE_STT_LOCAL_PORT:$MODULE_STT_DOCKER_PORT
+      - "$MODULE_STT_LOCAL_PORT:$MODULE_STT_DOCKER_PORT"
     stdin_open: true
     tty: true
     volumes:
@@ -96,7 +99,7 @@ services:
     networks:
       - default
 
-  module_sirh:
+  module-sirh:
     container_name: module_sirh
     build:
       context: ./module_sirh
@@ -104,7 +107,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $MODULE_SIRH_LOCAL_PORT:$MODULE_SIRH_DOCKER_PORT
+      - "$MODULE_SIRH_LOCAL_PORT:$MODULE_SIRH_DOCKER_PORT"
     stdin_open: true
     tty: true
     volumes:
@@ -120,7 +123,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $MODULE_IMAGE_LOCAL_PORT:$MODULE_IMAGE_DOCKER_PORT
+      - "$MODULE_IMAGE_LOCAL_PORT:$MODULE_IMAGE_DOCKER_PORT"
     stdin_open: true
     tty: true
     volumes:
@@ -136,7 +139,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $MODULE_EXTRACT_DATA_LOCAL_PORT:$MODULE_EXTRACT_DATA_DOCKER_PORT  
+      - "$MODULE_EXTRACT_DATA_LOCAL_PORT:$MODULE_EXTRACT_DATA_DOCKER_PORT"
     stdin_open: true
     tty: true
     volumes:
@@ -152,7 +155,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $MODULE_CLASSIFICATION_DATA_LOCAL_PORT:$MODULE_CLASSIFICATION_DATA_DOCKER_PORT
+      - "$MODULE_CLASSIFICATION_DATA_LOCAL_PORT:$MODULE_CLASSIFICATION_DATA_DOCKER_PORT"
     tty: true
     volumes:
       - ./module_classification:/app
@@ -164,16 +167,61 @@ services:
     build:
       context: ./module_ocr
       dockerfile: Dockerfile
-    restart: unless-stopped    
+    environment:
+      - TZ=Africa/Tunis
+      - OCR_LANGUAGE=en
+      - OCR_LANGUAGE_1=fr
+      - OCR_LANGUAGE_2=ar
     ports:
-      - ${MODULE_OCR_LOCAL_PORT}:${MODULE_OCR_DOCKER_PORT}
+      - "$MODULE_OCR_LOCAL_PORT:$MODULE_OCR_DOCKER_PORT"
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+  
+  module_upload_fastapi:
+    container_name: module_upload_fastapi
+    build:
+      context: ./module_upload_fastapi
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "8090:8000"  
     stdin_open: true
     tty: true
     volumes:
-      - ./module_ocr:/app
-    environment:
-      - MODULE_OCR_LOCAL_PORT=8003
-      - MODULE_OCR_DOCKER_PORT=8003
+      - ./module_upload_fastapi:/app
+    networks:
+      - default
+
+  # module_conn_sirh:
+  #   container_name: openhr_access
+  #   build:
+  #     context: ./module-conn-sirh
+  #     dockerfile: dockerfile
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8092:8080"
+  #   stdin_open: true
+  #   tty: true
+  #   volumes:
+  #     - ./module_conn_sirh:/app
+  #   networks:
+  #     - default
+
+  module_image_enhancement_fastapi:
+    container_name: module_image_enhancement_fastapi
+    build:
+      context: ./module_image_enhacement_fastapi
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "8091:8000"  
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./module_image_enhacement_fastapi:/app
     networks:
       - default
 

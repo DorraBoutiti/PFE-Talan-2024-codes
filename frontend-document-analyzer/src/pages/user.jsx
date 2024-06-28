@@ -1,11 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 
+import { account } from 'src/_mock/account';
+
 import { UserView } from 'src/sections/user/view';
 
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
-  const name = 'John Doe';
+  const name = account.displayName;
   return (
     <>
       <Helmet>

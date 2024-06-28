@@ -25,6 +25,67 @@
           }
         }
       }
+    },
+    "/extract_skills": {
+      "post": {
+        "summary": "Extract skills from text",
+        "description": "Extracts skills from a given text and returns the global score percentage along with filtered skills by skill type.",
+        "parameters": [
+          {
+            "name": "text",
+            "in": "body",
+            "description": "Text content to analyze for skills",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Skills extraction successful",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "global_score_percentage": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "Global score percentage of skills extracted from the text"
+                },
+                "filtered_skills": {
+                  "type": "object",
+                  "description": "Filtered skills by skill type",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "doc_node_value": {
+                          "type": "string",
+                          "description": "Skill description"
+                        },
+                        "score": {
+                          "type": "number",
+                          "format": "float",
+                          "description": "Score of the skill"
+                        },
+                        "skill_type": {
+                          "type": "string",
+                          "description": "Type of the skill"
+                        },
+                        "skill_name": {
+                          "type": "string",
+                          "description": "Name of the skill"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

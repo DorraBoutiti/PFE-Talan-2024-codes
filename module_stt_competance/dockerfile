@@ -6,6 +6,7 @@ WORKDIR /module_stt_competance
 # Copy and install the requirements
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir -r requirements.txt
+RUN python -m spacy download en_core_web_lg
 
 # Copy the static directory for swagger.json
 COPY static /module_stt_competance/static

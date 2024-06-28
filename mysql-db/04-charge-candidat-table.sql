@@ -1,3 +1,4 @@
+USE document_analyzer;
 insert into candidat (full_name, email) values ('Brit Fabri', 'bfabri0@myspace.com');
 insert into candidat (full_name, email) values ('Clemente Ozelton', 'cozelton1@nhs.uk');
 insert into candidat (full_name, email) values ('Friedrick Scholig', 'fscholig2@hugedomains.com');

@@ -165,37 +165,6 @@ def text_guided():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/process-image', methods=['POST'])
-def process_image():
-    if not request.is_json:
-        return jsonify({"error": "Invalid content type"}), 400
-
-    image_base64 = request.json.get('image_base64')
-
-    if not image_base64:
-        return jsonify({"error": "Base64 string required"}), 400
-
-    try:
-        # Decode the base64 string
-        image_data = base64.b64decode(image_base64)
-        image = Image.open(BytesIO(image_data))
-
-        # Correct image orientation
-        corrected_image = correct_image_orientation(image)
-        if corrected_image is None:
-            return jsonify({"error": "Image correction failed"}), 500
-
-        # Enhance image quality
-        enhanced_image = realesrgan.process_pil(corrected_image)
-
-        enhanced_base64 = base64.b64encode(enhanced_image).decode("utf-8")
-
-        # Crop the image
-        cropped_image = crop_image(image_base64=enhanced_base64)
-
-        return jsonify({"processed_image": cropped_image})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 # Swagger UI setup
 SWAGGER_URL = '/swagger'

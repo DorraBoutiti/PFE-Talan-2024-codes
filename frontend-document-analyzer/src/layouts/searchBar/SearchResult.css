@@ -1,7 +1,24 @@
+/* SearchResult.css */
 .search-result {
   padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .search-result:hover {
   background-color: #efefef;
+}
+
+.search-result__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.search-result span {
+  color: blue;
+  font-weight: bold;
+  text-decoration: none; /* Ensure text is not underlined */
 }

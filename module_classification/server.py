@@ -1,16 +1,36 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_cors import CORS
+from document_classifier import DocumentClassifier
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 
+classifier = DocumentClassifier()
 
-@app.route('/')
+
+@app.route("/")
 def hello():
-    return 'Hello from Module Speech-to-Text'
+    return "Hello from Module"
+
+
+@app.route("/classify-document", methods=["POST"])
+def classify_document():
+    # Assurez-vous que la requête contient des données JSON avec une clé "document_text"
+    if not request.json or "document_text" not in request.json:
+        return jsonify({"error": "Document text not provided or invalid format"}), 400
+
+    # Obtenez le texte du document à partir des données JSON
+    document_text = request.json["document_text"]
+
+    # Utilisez le classifieur pour obtenir le type de document
+    document_type = classifier.classify_document(document_text)
+
+    # Retournez le type de document détecté en tant que réponse JSON
+    return jsonify({"document_type": document_type}), 200
+
 
 # Swagger UI setup
 SWAGGER_URL = '/swagger'
